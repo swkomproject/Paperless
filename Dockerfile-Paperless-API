@@ -1,0 +1,20 @@
+FROM openjdk:19-alpine
+
+# Working directory in the container
+WORKDIR /app
+
+# We copy the entire app
+COPY ./src ./src
+COPY ./pom.xml ./pom.xml
+COPY ./mvnw ./mvnw
+COPY ./.mvn/wrapper/maven-wrapper.jar ./.mvn/wrapper/
+COPY ./.mvn/wrapper/maven-wrapper.properties ./.mvn/wrapper/
+
+# Build the jar file
+RUN ./mvnw package
+
+# Expose port 8080
+EXPOSE 8080
+
+# Run the jar file
+CMD ["java", "-jar", "target/paperless-1.0.jar"]
