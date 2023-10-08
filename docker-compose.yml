@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile-Paperless-UI
+    container_name: paperless-ui
+    ports:
+      - "80:80"
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-Paperless-API
+    container_name: paperless-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - nginx
