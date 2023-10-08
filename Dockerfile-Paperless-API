@@ -4,11 +4,10 @@ FROM openjdk:19-alpine
 WORKDIR /app
 
 # We copy the entire app
-COPY ./src ./src
-COPY ./pom.xml ./pom.xml
-COPY ./mvnw ./mvnw
-COPY ./.mvn/wrapper/maven-wrapper.jar ./.mvn/wrapper/
-COPY ./.mvn/wrapper/maven-wrapper.properties ./.mvn/wrapper/
+COPY src /app/src/
+COPY pom.xml /app/pom.xml
+COPY mvnw /app/mvnw
+COPY .mvn /app/.mvn/
 
 # Build the jar file
 RUN ./mvnw package
