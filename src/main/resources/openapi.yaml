@@ -3,7 +3,7 @@ info:
   title: Mock Server
   version: "1.0"
 servers:
-- url: /
+- url: "http://localhost:8080"
 paths:
   /api/correspondents:
     get:
