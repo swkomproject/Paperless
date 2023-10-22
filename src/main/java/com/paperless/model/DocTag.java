@@ -14,7 +14,7 @@ import javax.annotation.Generated;
  * DocTag
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-21T13:46:14.444283Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
 public class DocTag {
 
   private Long id;
