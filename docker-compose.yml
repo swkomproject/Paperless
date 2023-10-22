@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   nginx:
     build:
@@ -16,4 +17,22 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - nginx
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:latest
+    container_name: paperless-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=paperless
+      - POSTGRES_PASSWORD=paperless
+      - POSTGRES_DB=paperless
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "paperless"]
+      interval: 10s
+      timeout: 5s
+      retries: 20

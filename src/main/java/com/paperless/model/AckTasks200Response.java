@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("AckTasks_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
+@Generated(value = "com.paperless.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
 public class AckTasks200Response {
 
   private Integer result;

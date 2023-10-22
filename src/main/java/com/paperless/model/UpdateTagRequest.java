@@ -16,7 +16,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("UpdateTag_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
+@Generated(value = "com.paperless.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
 public class UpdateTagRequest {
 
   private Integer id;
