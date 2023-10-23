@@ -41,13 +41,13 @@ public class DocumentsTag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @OneToMany(mappedBy = "tag")
-    private Set<DocumentsDocumentTags> tagDocumentsDocumentTagses;
+    private Set<DocumentTags> tagDocumentTags;
 
     @OneToMany(mappedBy = "tag")
-    private Set<PaperlessMailMailruleAssignTags> tagPaperlessMailMailruleAssignTagses;
+    private Set<MailRuleAssignTags> tagMailRuleAssignTags;
 
     public Integer getId() {
         return id;
@@ -105,30 +105,30 @@ public class DocumentsTag {
         this.color = color;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<DocumentsDocumentTags> getTagDocumentsDocumentTagses() {
-        return tagDocumentsDocumentTagses;
+    public Set<DocumentTags> getTagDocumentsDocumentTagses() {
+        return tagDocumentTags;
     }
 
     public void setTagDocumentsDocumentTagses(
-            final Set<DocumentsDocumentTags> tagDocumentsDocumentTagses) {
-        this.tagDocumentsDocumentTagses = tagDocumentsDocumentTagses;
+            final Set<DocumentTags> tagDocumentTags) {
+        this.tagDocumentTags = tagDocumentTags;
     }
 
-    public Set<PaperlessMailMailruleAssignTags> getTagPaperlessMailMailruleAssignTagses() {
-        return tagPaperlessMailMailruleAssignTagses;
+    public Set<MailRuleAssignTags> getTagPaperlessMailMailruleAssignTagses() {
+        return tagMailRuleAssignTags;
     }
 
     public void setTagPaperlessMailMailruleAssignTagses(
-            final Set<PaperlessMailMailruleAssignTags> tagPaperlessMailMailruleAssignTagses) {
-        this.tagPaperlessMailMailruleAssignTagses = tagPaperlessMailMailruleAssignTagses;
+            final Set<MailRuleAssignTags> tagMailRuleAssignTags) {
+        this.tagMailRuleAssignTags = tagMailRuleAssignTags;
     }
 
 }

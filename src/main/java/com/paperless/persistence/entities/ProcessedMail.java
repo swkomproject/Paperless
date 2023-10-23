@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 
 
 @Entity
-public class PaperlessMailProcessedmail {
+public class ProcessedMail {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -44,11 +44,11 @@ public class PaperlessMailProcessedmail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rule_id", nullable = false)
-    private PaperlessMailMailrule rule;
+    private MailRule rule;
 
     public Integer getId() {
         return id;
@@ -114,19 +114,19 @@ public class PaperlessMailProcessedmail {
         this.error = error;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public PaperlessMailMailrule getRule() {
+    public MailRule getRule() {
         return rule;
     }
 
-    public void setRule(final PaperlessMailMailrule rule) {
+    public void setRule(final MailRule rule) {
         this.rule = rule;
     }
 

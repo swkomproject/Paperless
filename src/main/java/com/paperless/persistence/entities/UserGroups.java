@@ -1,11 +1,9 @@
 package com.paperless.persistence.entities;
-
-
 import javax.persistence.*;
 
 
 @Entity
-public class AuthGroupPermissions {
+public class UserGroups {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -22,12 +20,12 @@ public class AuthGroupPermissions {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", nullable = false)
-    private AuthGroup group;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id", nullable = false)
-    private AuthPermission permission;
+    @JoinColumn(name = "group_id", nullable = false)
+    private Group group;
 
     public Integer getId() {
         return id;
@@ -37,20 +35,20 @@ public class AuthGroupPermissions {
         this.id = id;
     }
 
-    public AuthGroup getGroup() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(final AuthGroup group) {
+    public void setGroup(final Group group) {
         this.group = group;
-    }
-
-    public AuthPermission getPermission() {
-        return permission;
-    }
-
-    public void setPermission(final AuthPermission permission) {
-        this.permission = permission;
     }
 
 }

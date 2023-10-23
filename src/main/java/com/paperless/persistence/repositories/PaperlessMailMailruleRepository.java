@@ -1,9 +1,9 @@
 package com.paperless.persistence.repositories;
 
-import com.paperless.persistence.entities.PaperlessMailMailrule;
+import com.paperless.persistence.entities.MailRule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PaperlessMailMailruleRepository extends JpaRepository<PaperlessMailMailrule, Integer> {
+public interface PaperlessMailMailruleRepository extends JpaRepository<MailRule, Integer> {
 }

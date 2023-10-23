@@ -1,10 +1,12 @@
 package com.paperless.persistence.entities;
 
+
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 
 @Entity
-public class DocumentsUisettings {
+public class AuthToken {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -18,36 +20,36 @@ public class DocumentsUisettings {
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
     )
-    private Integer id;
+    private Long id;
 
-    @Column(columnDefinition = "text")
-    private String settings;
+    @Column(nullable = false)
+    private OffsetDateTime created;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private AuthUser user;
+    private User user;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(final Integer id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
-    public String getSettings() {
-        return settings;
+    public OffsetDateTime getCreated() {
+        return created;
     }
 
-    public void setSettings(final String settings) {
-        this.settings = settings;
+    public void setCreated(final OffsetDateTime created) {
+        this.created = created;
     }
 
-    public AuthUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(final AuthUser user) {
+    public void setUser(final User user) {
         this.user = user;
     }
 

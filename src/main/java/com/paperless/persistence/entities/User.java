@@ -7,7 +7,7 @@ import java.util.Set;
 
 
 @Entity
-public class AuthUser {
+public class User {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -54,46 +54,46 @@ public class AuthUser {
     private OffsetDateTime dateJoined;
 
     @OneToMany(mappedBy = "user")
-    private Set<AuthUserGroups> userAuthUserGroupses;
+    private Set<UserGroups> userUserGroups;
 
     @OneToMany(mappedBy = "owner")
-    private Set<DocumentsCorrespondent> ownerDocumentsCorrespondents;
+    private Set<Correspondent> ownerCorrespondents;
 
     @OneToMany(mappedBy = "owner")
-    private Set<DocumentsDocumenttype> ownerDocumentsDocumenttypes;
+    private Set<DocumentType> ownerDocumentTypes;
 
     @OneToMany(mappedBy = "owner")
-    private Set<DocumentsStoragepath> ownerDocumentsStoragepaths;
+    private Set<StoragePath> ownerStoragePaths;
 
     @OneToMany(mappedBy = "owner")
     private Set<DocumentsTag> ownerDocumentsTags;
 
     @OneToMany(mappedBy = "user")
-    private Set<DocumentsUisettings> userDocumentsUisettingses;
+    private Set<UiSettings> userUiSettings;
 
     @OneToMany(mappedBy = "owner")
-    private Set<DocumentsSavedview> ownerDocumentsSavedviews;
+    private Set<SavedView> ownerSavedViews;
 
     @OneToMany(mappedBy = "owner")
-    private Set<PaperlessMailMailaccount> ownerPaperlessMailMailaccounts;
+    private Set<MailAccount> ownerMailAccounts;
 
     @OneToMany(mappedBy = "owner")
-    private Set<DocumentsDocument> ownerDocumentsDocuments;
+    private Set<Document> ownerDocuments;
 
     @OneToMany(mappedBy = "user")
     private Set<DocumentsNote> userDocumentsNotes;
 
     @OneToMany(mappedBy = "owner")
-    private Set<PaperlessMailMailrule> ownerPaperlessMailMailrules;
+    private Set<MailRule> ownerMailRules;
 
     @OneToMany(mappedBy = "user")
     private Set<AuthUserUserPermissions> userAuthUserUserPermissionses;
 
     @OneToMany(mappedBy = "user")
-    private Set<AuthtokenToken> userAuthtokenTokens;
+    private Set<AuthToken> userAuthTokens;
 
     @OneToMany(mappedBy = "owner")
-    private Set<PaperlessMailProcessedmail> ownerPaperlessMailProcessedmails;
+    private Set<ProcessedMail> ownerProcessedMails;
 
     public Integer getId() {
         return id;
@@ -183,39 +183,39 @@ public class AuthUser {
         this.dateJoined = dateJoined;
     }
 
-    public Set<AuthUserGroups> getUserAuthUserGroupses() {
-        return userAuthUserGroupses;
+    public Set<UserGroups> getUserAuthUserGroupses() {
+        return userUserGroups;
     }
 
-    public void setUserAuthUserGroupses(final Set<AuthUserGroups> userAuthUserGroupses) {
-        this.userAuthUserGroupses = userAuthUserGroupses;
+    public void setUserAuthUserGroupses(final Set<UserGroups> userUserGroups) {
+        this.userUserGroups = userUserGroups;
     }
 
-    public Set<DocumentsCorrespondent> getOwnerDocumentsCorrespondents() {
-        return ownerDocumentsCorrespondents;
+    public Set<Correspondent> getOwnerDocumentsCorrespondents() {
+        return ownerCorrespondents;
     }
 
     public void setOwnerDocumentsCorrespondents(
-            final Set<DocumentsCorrespondent> ownerDocumentsCorrespondents) {
-        this.ownerDocumentsCorrespondents = ownerDocumentsCorrespondents;
+            final Set<Correspondent> ownerCorrespondents) {
+        this.ownerCorrespondents = ownerCorrespondents;
     }
 
-    public Set<DocumentsDocumenttype> getOwnerDocumentsDocumenttypes() {
-        return ownerDocumentsDocumenttypes;
+    public Set<DocumentType> getOwnerDocumentsDocumenttypes() {
+        return ownerDocumentTypes;
     }
 
     public void setOwnerDocumentsDocumenttypes(
-            final Set<DocumentsDocumenttype> ownerDocumentsDocumenttypes) {
-        this.ownerDocumentsDocumenttypes = ownerDocumentsDocumenttypes;
+            final Set<DocumentType> ownerDocumentTypes) {
+        this.ownerDocumentTypes = ownerDocumentTypes;
     }
 
-    public Set<DocumentsStoragepath> getOwnerDocumentsStoragepaths() {
-        return ownerDocumentsStoragepaths;
+    public Set<StoragePath> getOwnerDocumentsStoragepaths() {
+        return ownerStoragePaths;
     }
 
     public void setOwnerDocumentsStoragepaths(
-            final Set<DocumentsStoragepath> ownerDocumentsStoragepaths) {
-        this.ownerDocumentsStoragepaths = ownerDocumentsStoragepaths;
+            final Set<StoragePath> ownerStoragePaths) {
+        this.ownerStoragePaths = ownerStoragePaths;
     }
 
     public Set<DocumentsTag> getOwnerDocumentsTags() {
@@ -226,39 +226,39 @@ public class AuthUser {
         this.ownerDocumentsTags = ownerDocumentsTags;
     }
 
-    public Set<DocumentsUisettings> getUserDocumentsUisettingses() {
-        return userDocumentsUisettingses;
+    public Set<UiSettings> getUserDocumentsUisettingses() {
+        return userUiSettings;
     }
 
     public void setUserDocumentsUisettingses(
-            final Set<DocumentsUisettings> userDocumentsUisettingses) {
-        this.userDocumentsUisettingses = userDocumentsUisettingses;
+            final Set<UiSettings> userUiSettings) {
+        this.userUiSettings = userUiSettings;
     }
 
-    public Set<DocumentsSavedview> getOwnerDocumentsSavedviews() {
-        return ownerDocumentsSavedviews;
+    public Set<SavedView> getOwnerDocumentsSavedviews() {
+        return ownerSavedViews;
     }
 
     public void setOwnerDocumentsSavedviews(
-            final Set<DocumentsSavedview> ownerDocumentsSavedviews) {
-        this.ownerDocumentsSavedviews = ownerDocumentsSavedviews;
+            final Set<SavedView> ownerSavedViews) {
+        this.ownerSavedViews = ownerSavedViews;
     }
 
-    public Set<PaperlessMailMailaccount> getOwnerPaperlessMailMailaccounts() {
-        return ownerPaperlessMailMailaccounts;
+    public Set<MailAccount> getOwnerPaperlessMailMailaccounts() {
+        return ownerMailAccounts;
     }
 
     public void setOwnerPaperlessMailMailaccounts(
-            final Set<PaperlessMailMailaccount> ownerPaperlessMailMailaccounts) {
-        this.ownerPaperlessMailMailaccounts = ownerPaperlessMailMailaccounts;
+            final Set<MailAccount> ownerMailAccounts) {
+        this.ownerMailAccounts = ownerMailAccounts;
     }
 
-    public Set<DocumentsDocument> getOwnerDocumentsDocuments() {
-        return ownerDocumentsDocuments;
+    public Set<Document> getOwnerDocumentsDocuments() {
+        return ownerDocuments;
     }
 
-    public void setOwnerDocumentsDocuments(final Set<DocumentsDocument> ownerDocumentsDocuments) {
-        this.ownerDocumentsDocuments = ownerDocumentsDocuments;
+    public void setOwnerDocumentsDocuments(final Set<Document> ownerDocuments) {
+        this.ownerDocuments = ownerDocuments;
     }
 
     public Set<DocumentsNote> getUserDocumentsNotes() {
@@ -269,13 +269,13 @@ public class AuthUser {
         this.userDocumentsNotes = userDocumentsNotes;
     }
 
-    public Set<PaperlessMailMailrule> getOwnerPaperlessMailMailrules() {
-        return ownerPaperlessMailMailrules;
+    public Set<MailRule> getOwnerPaperlessMailMailrules() {
+        return ownerMailRules;
     }
 
     public void setOwnerPaperlessMailMailrules(
-            final Set<PaperlessMailMailrule> ownerPaperlessMailMailrules) {
-        this.ownerPaperlessMailMailrules = ownerPaperlessMailMailrules;
+            final Set<MailRule> ownerMailRules) {
+        this.ownerMailRules = ownerMailRules;
     }
 
     public Set<AuthUserUserPermissions> getUserAuthUserUserPermissionses() {
@@ -287,21 +287,21 @@ public class AuthUser {
         this.userAuthUserUserPermissionses = userAuthUserUserPermissionses;
     }
 
-    public Set<AuthtokenToken> getUserAuthtokenTokens() {
-        return userAuthtokenTokens;
+    public Set<AuthToken> getUserAuthtokenTokens() {
+        return userAuthTokens;
     }
 
-    public void setUserAuthtokenTokens(final Set<AuthtokenToken> userAuthtokenTokens) {
-        this.userAuthtokenTokens = userAuthtokenTokens;
+    public void setUserAuthtokenTokens(final Set<AuthToken> userAuthTokens) {
+        this.userAuthTokens = userAuthTokens;
     }
 
-    public Set<PaperlessMailProcessedmail> getOwnerPaperlessMailProcessedmails() {
-        return ownerPaperlessMailProcessedmails;
+    public Set<ProcessedMail> getOwnerPaperlessMailProcessedmails() {
+        return ownerProcessedMails;
     }
 
     public void setOwnerPaperlessMailProcessedmails(
-            final Set<PaperlessMailProcessedmail> ownerPaperlessMailProcessedmails) {
-        this.ownerPaperlessMailProcessedmails = ownerPaperlessMailProcessedmails;
+            final Set<ProcessedMail> ownerProcessedMails) {
+        this.ownerProcessedMails = ownerProcessedMails;
     }
 
 }

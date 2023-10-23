@@ -1,11 +1,9 @@
 package com.paperless.persistence.entities;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
-
 
 @Entity
-public class DocumentsNote {
+public class DocumentTags {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -21,19 +19,13 @@ public class DocumentsNote {
     )
     private Integer id;
 
-    @Column(nullable = false, columnDefinition = "text")
-    private String note;
-
-    @Column(nullable = false)
-    private OffsetDateTime created;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "document_id")
+    @JoinColumn(name = "document_id", nullable = false)
     private Document document;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "tag_id", nullable = false)
+    private DocumentsTag tag;
 
     public Integer getId() {
         return id;
@@ -41,22 +33,6 @@ public class DocumentsNote {
 
     public void setId(final Integer id) {
         this.id = id;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(final String note) {
-        this.note = note;
-    }
-
-    public OffsetDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(final OffsetDateTime created) {
-        this.created = created;
     }
 
     public Document getDocument() {
@@ -67,12 +43,12 @@ public class DocumentsNote {
         this.document = document;
     }
 
-    public User getUser() {
-        return user;
+    public DocumentsTag getTag() {
+        return tag;
     }
 
-    public void setUser(final User user) {
-        this.user = user;
+    public void setTag(final DocumentsTag tag) {
+        this.tag = tag;
     }
 
 }

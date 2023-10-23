@@ -1,9 +1,9 @@
 package com.paperless.persistence.repositories;
 
-import com.paperless.persistence.entities.AuthPermission;
+import com.paperless.persistence.entities.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AuthPermissionRepository extends JpaRepository<AuthPermission, Integer> {
+public interface AuthPermissionRepository extends JpaRepository<Permission, Integer> {
 }

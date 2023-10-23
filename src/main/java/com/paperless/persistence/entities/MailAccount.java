@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class PaperlessMailMailaccount {
+public class MailAccount {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -47,10 +47,10 @@ public class PaperlessMailMailaccount {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @OneToMany(mappedBy = "account")
-    private Set<PaperlessMailMailrule> accountPaperlessMailMailrules;
+    private Set<MailRule> accountMailRules;
 
     public Integer getId() {
         return id;
@@ -124,21 +124,21 @@ public class PaperlessMailMailaccount {
         this.isToken = isToken;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<PaperlessMailMailrule> getAccountPaperlessMailMailrules() {
-        return accountPaperlessMailMailrules;
+    public Set<MailRule> getAccountPaperlessMailMailrules() {
+        return accountMailRules;
     }
 
     public void setAccountPaperlessMailMailrules(
-            final Set<PaperlessMailMailrule> accountPaperlessMailMailrules) {
-        this.accountPaperlessMailMailrules = accountPaperlessMailMailrules;
+            final Set<MailRule> accountMailRules) {
+        this.accountMailRules = accountMailRules;
     }
 
 }

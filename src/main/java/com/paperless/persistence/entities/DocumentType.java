@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class DocumentsDocumenttype {
+public class DocumentType {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -35,13 +35,13 @@ public class DocumentsDocumenttype {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @OneToMany(mappedBy = "documentType")
-    private Set<DocumentsDocument> documentTypeDocumentsDocuments;
+    private Set<Document> documentTypeDocuments;
 
     @OneToMany(mappedBy = "assignDocumentType")
-    private Set<PaperlessMailMailrule> assignDocumentTypePaperlessMailMailrules;
+    private Set<MailRule> assignDocumentTypeMailRules;
 
     public Integer getId() {
         return id;
@@ -83,30 +83,30 @@ public class DocumentsDocumenttype {
         this.isInsensitive = isInsensitive;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<DocumentsDocument> getDocumentTypeDocumentsDocuments() {
-        return documentTypeDocumentsDocuments;
+    public Set<Document> getDocumentTypeDocumentsDocuments() {
+        return documentTypeDocuments;
     }
 
     public void setDocumentTypeDocumentsDocuments(
-            final Set<DocumentsDocument> documentTypeDocumentsDocuments) {
-        this.documentTypeDocumentsDocuments = documentTypeDocumentsDocuments;
+            final Set<Document> documentTypeDocuments) {
+        this.documentTypeDocuments = documentTypeDocuments;
     }
 
-    public Set<PaperlessMailMailrule> getAssignDocumentTypePaperlessMailMailrules() {
-        return assignDocumentTypePaperlessMailMailrules;
+    public Set<MailRule> getAssignDocumentTypePaperlessMailMailrules() {
+        return assignDocumentTypeMailRules;
     }
 
     public void setAssignDocumentTypePaperlessMailMailrules(
-            final Set<PaperlessMailMailrule> assignDocumentTypePaperlessMailMailrules) {
-        this.assignDocumentTypePaperlessMailMailrules = assignDocumentTypePaperlessMailMailrules;
+            final Set<MailRule> assignDocumentTypeMailRules) {
+        this.assignDocumentTypeMailRules = assignDocumentTypeMailRules;
     }
 
 }

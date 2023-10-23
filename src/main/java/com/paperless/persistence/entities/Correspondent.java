@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class DocumentsStoragepath {
+public class Correspondent {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -33,15 +33,15 @@ public class DocumentsStoragepath {
     @Column(nullable = false)
     private Boolean isInsensitive;
 
-    @Column(nullable = false, length = 512)
-    private String path;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
-    @OneToMany(mappedBy = "storagePath")
-    private Set<DocumentsDocument> storagePathDocumentsDocuments;
+    @OneToMany(mappedBy = "correspondent")
+    private Set<Document> correspondentDocuments;
+
+    @OneToMany(mappedBy = "assignCorrespondent")
+    private Set<MailRule> assignCorrespondentMailRules;
 
     public Integer getId() {
         return id;
@@ -83,29 +83,30 @@ public class DocumentsStoragepath {
         this.isInsensitive = isInsensitive;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(final String path) {
-        this.path = path;
-    }
-
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<DocumentsDocument> getStoragePathDocumentsDocuments() {
-        return storagePathDocumentsDocuments;
+    public Set<Document> getCorrespondentDocumentsDocuments() {
+        return correspondentDocuments;
     }
 
-    public void setStoragePathDocumentsDocuments(
-            final Set<DocumentsDocument> storagePathDocumentsDocuments) {
-        this.storagePathDocumentsDocuments = storagePathDocumentsDocuments;
+    public void setCorrespondentDocumentsDocuments(
+            final Set<Document> correspondentDocuments) {
+        this.correspondentDocuments = correspondentDocuments;
+    }
+
+    public Set<MailRule> getAssignCorrespondentPaperlessMailMailrules() {
+        return assignCorrespondentMailRules;
+    }
+
+    public void setAssignCorrespondentPaperlessMailMailrules(
+            final Set<MailRule> assignCorrespondentMailRules) {
+        this.assignCorrespondentMailRules = assignCorrespondentMailRules;
     }
 
 }

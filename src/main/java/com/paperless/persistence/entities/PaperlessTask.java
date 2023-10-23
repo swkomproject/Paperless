@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 
 
 @Entity
-public class DocumentsPaperlesstask {
+public class PaperlessTask {
 
     @Id
     @Column(nullable = false, updatable = false)

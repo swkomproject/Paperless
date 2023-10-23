@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class AuthGroup {
+public class Group {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -25,10 +25,10 @@ public class AuthGroup {
     private String name;
 
     @OneToMany(mappedBy = "group")
-    private Set<AuthUserGroups> groupAuthUserGroupses;
+    private Set<UserGroups> groupUserGroups;
 
     @OneToMany(mappedBy = "group")
-    private Set<AuthGroupPermissions> groupAuthGroupPermissionses;
+    private Set<GroupPermissions> groupGroupPermissions;
 
     public Integer getId() {
         return id;
@@ -46,21 +46,21 @@ public class AuthGroup {
         this.name = name;
     }
 
-    public Set<AuthUserGroups> getGroupAuthUserGroupses() {
-        return groupAuthUserGroupses;
+    public Set<UserGroups> getGroupAuthUserGroupses() {
+        return groupUserGroups;
     }
 
-    public void setGroupAuthUserGroupses(final Set<AuthUserGroups> groupAuthUserGroupses) {
-        this.groupAuthUserGroupses = groupAuthUserGroupses;
+    public void setGroupAuthUserGroupses(final Set<UserGroups> groupUserGroups) {
+        this.groupUserGroups = groupUserGroups;
     }
 
-    public Set<AuthGroupPermissions> getGroupAuthGroupPermissionses() {
-        return groupAuthGroupPermissionses;
+    public Set<GroupPermissions> getGroupAuthGroupPermissionses() {
+        return groupGroupPermissions;
     }
 
     public void setGroupAuthGroupPermissionses(
-            final Set<AuthGroupPermissions> groupAuthGroupPermissionses) {
-        this.groupAuthGroupPermissionses = groupAuthGroupPermissionses;
+            final Set<GroupPermissions> groupGroupPermissions) {
+        this.groupGroupPermissions = groupGroupPermissions;
     }
 
 }

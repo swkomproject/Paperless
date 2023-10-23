@@ -1,15 +1,11 @@
 package com.paperless.services.impl;
 
-import com.paperless.persistence.entities.DocumentsDocument;
 import com.paperless.persistence.repositories.DocumentsDocumentRepository;
 import com.paperless.services.dto.GetDocument200Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {

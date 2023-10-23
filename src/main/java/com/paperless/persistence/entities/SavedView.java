@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class DocumentsSavedview {
+public class SavedView {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -38,10 +38,10 @@ public class DocumentsSavedview {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @OneToMany(mappedBy = "savedView")
-    private Set<DocumentsSavedviewfilterrule> savedViewDocumentsSavedviewfilterrules;
+    private Set<SavedViewFilterRule> savedViewSavedViewFilterRules;
 
     public Integer getId() {
         return id;
@@ -91,21 +91,21 @@ public class DocumentsSavedview {
         this.sortReverse = sortReverse;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<DocumentsSavedviewfilterrule> getSavedViewDocumentsSavedviewfilterrules() {
-        return savedViewDocumentsSavedviewfilterrules;
+    public Set<SavedViewFilterRule> getSavedViewDocumentsSavedviewfilterrules() {
+        return savedViewSavedViewFilterRules;
     }
 
     public void setSavedViewDocumentsSavedviewfilterrules(
-            final Set<DocumentsSavedviewfilterrule> savedViewDocumentsSavedviewfilterrules) {
-        this.savedViewDocumentsSavedviewfilterrules = savedViewDocumentsSavedviewfilterrules;
+            final Set<SavedViewFilterRule> savedViewSavedViewFilterRules) {
+        this.savedViewSavedViewFilterRules = savedViewSavedViewFilterRules;
     }
 
 }

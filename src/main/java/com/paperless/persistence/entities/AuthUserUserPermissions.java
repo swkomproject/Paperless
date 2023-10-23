@@ -21,11 +21,11 @@ public class AuthUserUserPermissions {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private AuthUser user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "permission_id", nullable = false)
-    private AuthPermission permission;
+    private Permission permission;
 
     public Integer getId() {
         return id;
@@ -35,19 +35,19 @@ public class AuthUserUserPermissions {
         this.id = id;
     }
 
-    public AuthUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(final AuthUser user) {
+    public void setUser(final User user) {
         this.user = user;
     }
 
-    public AuthPermission getPermission() {
+    public Permission getPermission() {
         return permission;
     }
 
-    public void setPermission(final AuthPermission permission) {
+    public void setPermission(final Permission permission) {
         this.permission = permission;
     }
 

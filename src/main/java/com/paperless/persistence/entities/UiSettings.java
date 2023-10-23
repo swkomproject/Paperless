@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-public class PaperlessMailMailruleAssignTags {
+public class UiSettings {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -20,13 +20,12 @@ public class PaperlessMailMailruleAssignTags {
     )
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mailrule_id", nullable = false)
-    private PaperlessMailMailrule mailrule;
+    @Column(columnDefinition = "text")
+    private String settings;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id", nullable = false)
-    private DocumentsTag tag;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -36,20 +35,20 @@ public class PaperlessMailMailruleAssignTags {
         this.id = id;
     }
 
-    public PaperlessMailMailrule getMailrule() {
-        return mailrule;
+    public String getSettings() {
+        return settings;
     }
 
-    public void setMailrule(final PaperlessMailMailrule mailrule) {
-        this.mailrule = mailrule;
+    public void setSettings(final String settings) {
+        this.settings = settings;
     }
 
-    public DocumentsTag getTag() {
-        return tag;
+    public User getUser() {
+        return user;
     }
 
-    public void setTag(final DocumentsTag tag) {
-        this.tag = tag;
+    public void setUser(final User user) {
+        this.user = user;
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 @Entity
-public class PaperlessMailMailrule {
+public class MailRule {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -68,25 +68,25 @@ public class PaperlessMailMailrule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
-    private PaperlessMailMailaccount account;
+    private MailAccount account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assign_correspondent_id")
-    private DocumentsCorrespondent assignCorrespondent;
+    private Correspondent assignCorrespondent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assign_document_type_id")
-    private DocumentsDocumenttype assignDocumentType;
+    private DocumentType assignDocumentType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private AuthUser owner;
+    private User owner;
 
     @OneToMany(mappedBy = "rule")
-    private Set<PaperlessMailProcessedmail> rulePaperlessMailProcessedmails;
+    private Set<ProcessedMail> ruleProcessedMails;
 
     @OneToMany(mappedBy = "mailrule")
-    private Set<PaperlessMailMailruleAssignTags> mailrulePaperlessMailMailruleAssignTagses;
+    private Set<MailRuleAssignTags> mailruleMailRuleAssignTags;
 
     public Integer getId() {
         return id;
@@ -216,54 +216,54 @@ public class PaperlessMailMailrule {
         this.filterTo = filterTo;
     }
 
-    public PaperlessMailMailaccount getAccount() {
+    public MailAccount getAccount() {
         return account;
     }
 
-    public void setAccount(final PaperlessMailMailaccount account) {
+    public void setAccount(final MailAccount account) {
         this.account = account;
     }
 
-    public DocumentsCorrespondent getAssignCorrespondent() {
+    public Correspondent getAssignCorrespondent() {
         return assignCorrespondent;
     }
 
-    public void setAssignCorrespondent(final DocumentsCorrespondent assignCorrespondent) {
+    public void setAssignCorrespondent(final Correspondent assignCorrespondent) {
         this.assignCorrespondent = assignCorrespondent;
     }
 
-    public DocumentsDocumenttype getAssignDocumentType() {
+    public DocumentType getAssignDocumentType() {
         return assignDocumentType;
     }
 
-    public void setAssignDocumentType(final DocumentsDocumenttype assignDocumentType) {
+    public void setAssignDocumentType(final DocumentType assignDocumentType) {
         this.assignDocumentType = assignDocumentType;
     }
 
-    public AuthUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(final AuthUser owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
-    public Set<PaperlessMailProcessedmail> getRulePaperlessMailProcessedmails() {
-        return rulePaperlessMailProcessedmails;
+    public Set<ProcessedMail> getRulePaperlessMailProcessedmails() {
+        return ruleProcessedMails;
     }
 
     public void setRulePaperlessMailProcessedmails(
-            final Set<PaperlessMailProcessedmail> rulePaperlessMailProcessedmails) {
-        this.rulePaperlessMailProcessedmails = rulePaperlessMailProcessedmails;
+            final Set<ProcessedMail> ruleProcessedMails) {
+        this.ruleProcessedMails = ruleProcessedMails;
     }
 
-    public Set<PaperlessMailMailruleAssignTags> getMailrulePaperlessMailMailruleAssignTagses() {
-        return mailrulePaperlessMailMailruleAssignTagses;
+    public Set<MailRuleAssignTags> getMailrulePaperlessMailMailruleAssignTagses() {
+        return mailruleMailRuleAssignTags;
     }
 
     public void setMailrulePaperlessMailMailruleAssignTagses(
-            final Set<PaperlessMailMailruleAssignTags> mailrulePaperlessMailMailruleAssignTagses) {
-        this.mailrulePaperlessMailMailruleAssignTagses = mailrulePaperlessMailMailruleAssignTagses;
+            final Set<MailRuleAssignTags> mailruleMailRuleAssignTags) {
+        this.mailruleMailRuleAssignTags = mailruleMailRuleAssignTags;
     }
 
 }

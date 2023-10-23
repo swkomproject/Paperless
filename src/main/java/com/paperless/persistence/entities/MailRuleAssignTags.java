@@ -2,8 +2,9 @@ package com.paperless.persistence.entities;
 
 import javax.persistence.*;
 
+
 @Entity
-public class DocumentsDocumentTags {
+public class MailRuleAssignTags {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -20,8 +21,8 @@ public class DocumentsDocumentTags {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "document_id", nullable = false)
-    private DocumentsDocument document;
+    @JoinColumn(name = "mailrule_id", nullable = false)
+    private MailRule mailrule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id", nullable = false)
@@ -35,12 +36,12 @@ public class DocumentsDocumentTags {
         this.id = id;
     }
 
-    public DocumentsDocument getDocument() {
-        return document;
+    public MailRule getMailrule() {
+        return mailrule;
     }
 
-    public void setDocument(final DocumentsDocument document) {
-        this.document = document;
+    public void setMailrule(final MailRule mailrule) {
+        this.mailrule = mailrule;
     }
 
     public DocumentsTag getTag() {

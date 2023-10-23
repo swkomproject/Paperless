@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-public class DocumentsSavedviewfilterrule {
+public class SavedViewFilterRule {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -28,7 +28,7 @@ public class DocumentsSavedviewfilterrule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "saved_view_id", nullable = false)
-    private DocumentsSavedview savedView;
+    private SavedView savedView;
 
     public Integer getId() {
         return id;
@@ -54,11 +54,11 @@ public class DocumentsSavedviewfilterrule {
         this.value = value;
     }
 
-    public DocumentsSavedview getSavedView() {
+    public SavedView getSavedView() {
         return savedView;
     }
 
-    public void setSavedView(final DocumentsSavedview savedView) {
+    public void setSavedView(final SavedView savedView) {
         this.savedView = savedView;
     }
 
