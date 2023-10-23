@@ -38,7 +38,7 @@ public class SavedView {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private User owner;
+    private AuthUser owner;
 
     @OneToMany(mappedBy = "savedView")
     private Set<SavedViewFilterRule> savedViewSavedViewFilterRules;
@@ -91,11 +91,11 @@ public class SavedView {
         this.sortReverse = sortReverse;
     }
 
-    public User getOwner() {
+    public AuthUser getOwner() {
         return owner;
     }
 
-    public void setOwner(final User owner) {
+    public void setOwner(final AuthUser owner) {
         this.owner = owner;
     }
 

@@ -34,7 +34,7 @@ public class Permission {
     private Set<GroupPermissions> permissionGroupPermissions;
 
     @OneToMany(mappedBy = "permission")
-    private Set<AuthUserUserPermissions> permissionAuthUserUserPermissionses;
+    private Set<UserPermissions> permissionUserPermissions;
 
     public Integer getId() {
         return id;
@@ -77,13 +77,13 @@ public class Permission {
         this.permissionGroupPermissions = permissionGroupPermissions;
     }
 
-    public Set<AuthUserUserPermissions> getPermissionAuthUserUserPermissionses() {
-        return permissionAuthUserUserPermissionses;
+    public Set<UserPermissions> getPermissionAuthUserUserPermissionses() {
+        return permissionUserPermissions;
     }
 
     public void setPermissionAuthUserUserPermissionses(
-            final Set<AuthUserUserPermissions> permissionAuthUserUserPermissionses) {
-        this.permissionAuthUserUserPermissionses = permissionAuthUserUserPermissionses;
+            final Set<UserPermissions> permissionUserPermissions) {
+        this.permissionUserPermissions = permissionUserPermissions;
     }
 
 }

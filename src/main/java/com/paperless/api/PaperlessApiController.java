@@ -1,7 +1,7 @@
 package com.paperless.api;
 
 
-import com.paperless.services.dto.GetDocument200Response;
+import com.paperless.services.dto.okresponse.GetDocument200Response;
 import com.paperless.services.impl.DocumentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

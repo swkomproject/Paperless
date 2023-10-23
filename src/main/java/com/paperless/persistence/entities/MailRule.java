@@ -80,7 +80,7 @@ public class MailRule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private User owner;
+    private AuthUser owner;
 
     @OneToMany(mappedBy = "rule")
     private Set<ProcessedMail> ruleProcessedMails;
@@ -240,11 +240,11 @@ public class MailRule {
         this.assignDocumentType = assignDocumentType;
     }
 
-    public User getOwner() {
+    public AuthUser getOwner() {
         return owner;
     }
 
-    public void setOwner(final User owner) {
+    public void setOwner(final AuthUser owner) {
         this.owner = owner;
     }
 

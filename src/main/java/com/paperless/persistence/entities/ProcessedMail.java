@@ -44,7 +44,7 @@ public class ProcessedMail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private User owner;
+    private AuthUser owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rule_id", nullable = false)
@@ -114,11 +114,11 @@ public class ProcessedMail {
         this.error = error;
     }
 
-    public User getOwner() {
+    public AuthUser getOwner() {
         return owner;
     }
 
-    public void setOwner(final User owner) {
+    public void setOwner(final AuthUser owner) {
         this.owner = owner;
     }
 

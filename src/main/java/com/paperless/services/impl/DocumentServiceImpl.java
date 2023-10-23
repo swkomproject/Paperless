@@ -1,7 +1,7 @@
 package com.paperless.services.impl;
 
 import com.paperless.persistence.repositories.DocumentRepository;
-import com.paperless.services.dto.GetDocument200Response;
+import com.paperless.services.dto.okresponse.GetDocument200Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

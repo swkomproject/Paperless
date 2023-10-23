@@ -5,55 +5,53 @@
  */
 package com.paperless.api;
 
-import com.paperless.services.dto.AckTasks200Response;
+import com.paperless.services.dto.okresponse.AckTasks200Response;
 import com.paperless.services.dto.AckTasksRequest;
 import com.paperless.services.dto.BulkEditRequest;
-import com.paperless.services.dto.CreateCorrespondentRequest;
-import com.paperless.services.dto.CreateDocumentType200Response;
-import com.paperless.services.dto.CreateGroupRequest;
-import com.paperless.services.dto.CreateSavedViewsRequest;
-import com.paperless.services.dto.CreateStoragePath200Response;
-import com.paperless.services.dto.CreateStoragePathRequest;
-import com.paperless.services.dto.CreateTag200Response;
-import com.paperless.services.dto.CreateTagRequest;
-import com.paperless.services.dto.CreateUISettings200Response;
-import com.paperless.services.dto.CreateUISettingsRequest;
-import com.paperless.services.dto.CreateUserRequest;
-import com.paperless.services.impl.DocumentServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.paperless.services.dto.create.CreateCorrespondentRequest;
+import com.paperless.services.dto.okresponse.CreateDocumentType200Response;
+import com.paperless.services.dto.create.CreateGroupRequest;
+import com.paperless.services.dto.create.CreateSavedViewsRequest;
+import com.paperless.services.dto.okresponse.CreateStoragePath200Response;
+import com.paperless.services.dto.create.CreateStoragePathRequest;
+import com.paperless.services.dto.okresponse.CreateTag200Response;
+import com.paperless.services.dto.create.CreateTagRequest;
+import com.paperless.services.dto.okresponse.CreateUISettings200Response;
+import com.paperless.services.dto.create.CreateUISettingsRequest;
+import com.paperless.services.dto.create.CreateUserRequest;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.paperless.services.dto.GetCorrespondents200Response;
-import com.paperless.services.dto.GetDocument200Response;
-import com.paperless.services.dto.GetDocumentMetadata200Response;
-import com.paperless.services.dto.GetDocumentSuggestions200Response;
-import com.paperless.services.dto.GetDocumentTypes200Response;
-import com.paperless.services.dto.GetDocuments200Response;
-import com.paperless.services.dto.GetGroups200Response;
-import com.paperless.services.dto.GetSavedViews200Response;
-import com.paperless.services.dto.GetStoragePaths200Response;
-import com.paperless.services.dto.GetTags200Response;
-import com.paperless.services.dto.GetTasks200ResponseInner;
-import com.paperless.services.dto.GetUISettings200Response;
-import com.paperless.services.dto.GetUsers200Response;
-import com.paperless.services.dto.GetUsers200ResponseResultsInner;
+import com.paperless.services.dto.okresponse.GetCorrespondents200Response;
+import com.paperless.services.dto.okresponse.GetDocument200Response;
+import com.paperless.services.dto.okresponse.GetDocumentMetadata200Response;
+import com.paperless.services.dto.okresponse.GetDocumentSuggestions200Response;
+import com.paperless.services.dto.okresponse.GetDocumentTypes200Response;
+import com.paperless.services.dto.okresponse.GetDocuments200Response;
+import com.paperless.services.dto.okresponse.GetGroups200Response;
+import com.paperless.services.dto.okresponse.GetSavedViews200Response;
+import com.paperless.services.dto.okresponse.GetStoragePaths200Response;
+import com.paperless.services.dto.okresponse.GetTags200Response;
+import com.paperless.services.dto.okresponse.GetTasks200ResponseInner;
+import com.paperless.services.dto.okresponse.GetUISettings200Response;
+import com.paperless.services.dto.okresponse.GetUsers200Response;
+import com.paperless.services.dto.okresponse.GetUsers200ResponseResultsInner;
 import java.time.OffsetDateTime;
-import com.paperless.services.dto.SelectionData200Response;
+import com.paperless.services.dto.okresponse.SelectionData200Response;
 import com.paperless.services.dto.SelectionDataRequest;
-import com.paperless.services.dto.Statistics200Response;
-import com.paperless.services.dto.UpdateCorrespondent200Response;
-import com.paperless.services.dto.UpdateCorrespondentRequest;
-import com.paperless.services.dto.UpdateDocument200Response;
-import com.paperless.services.dto.UpdateDocumentRequest;
-import com.paperless.services.dto.UpdateDocumentType200Response;
-import com.paperless.services.dto.UpdateDocumentTypeRequest;
-import com.paperless.services.dto.UpdateGroup200Response;
-import com.paperless.services.dto.UpdateGroupRequest;
-import com.paperless.services.dto.UpdateStoragePath200Response;
-import com.paperless.services.dto.UpdateStoragePathRequest;
-import com.paperless.services.dto.UpdateTag200Response;
-import com.paperless.services.dto.UpdateTagRequest;
-import com.paperless.services.dto.UpdateUserRequest;
-import com.paperless.services.dto.UserInfo;
+import com.paperless.services.dto.okresponse.Statistics200Response;
+import com.paperless.services.dto.okresponse.UpdateCorrespondent200Response;
+import com.paperless.services.dto.update.UpdateCorrespondentRequest;
+import com.paperless.services.dto.okresponse.UpdateDocument200Response;
+import com.paperless.services.dto.update.UpdateDocumentRequest;
+import com.paperless.services.dto.okresponse.UpdateDocumentType200Response;
+import com.paperless.services.dto.update.UpdateDocumentTypeRequest;
+import com.paperless.services.dto.okresponse.UpdateGroup200Response;
+import com.paperless.services.dto.update.UpdateGroupRequest;
+import com.paperless.services.dto.okresponse.UpdateStoragePath200Response;
+import com.paperless.services.dto.update.UpdateStoragePathRequest;
+import com.paperless.services.dto.okresponse.UpdateTag200Response;
+import com.paperless.services.dto.update.UpdateTagRequest;
+import com.paperless.services.dto.update.UpdateUserRequest;
+import com.paperless.services.dto.UserInfoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -1279,7 +1277,7 @@ public interface PaperlessApi {
     /**
      * POST /api/token/
      *
-     * @param userInfo  (optional)
+     * @param userInfoDTO  (optional)
      * @return Success (status code 200)
      */
     @Operation(
@@ -1295,7 +1293,7 @@ public interface PaperlessApi {
         consumes = { "application/json", "text/json", "application/*+json" }
     )
     default ResponseEntity<Void> getToken(
-        @Parameter(name = "UserInfo", description = "") @Valid @RequestBody(required = false) UserInfo userInfo
+        @Parameter(name = "UserInfo", description = "") @Valid @RequestBody(required = false) UserInfoDTO userInfoDTO
     ) {
         return new ResponseEntity<>(HttpStatus.OK);
 
