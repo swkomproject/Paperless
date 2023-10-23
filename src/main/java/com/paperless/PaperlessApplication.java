@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
@@ -15,13 +16,16 @@ import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGe
     basePackages = {"com.paperless", "com.paperless.api" , "com.paperless.configuration"},
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
+@EnableJpaRepositories(
+  basePackages = "com.paperless.persistence.repositories"
+)
 public class PaperlessApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PaperlessApplication.class, args);
     }
 
-    @Bean(name = "org.paperless.PaperlessApplication.jsonNullableModule")
+    @Bean(name = "com.paperless.PaperlessApplication.jsonNullableModule")
     public Module jsonNullableModule() {
         return new JsonNullableModule();
     }
