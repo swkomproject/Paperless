@@ -21,11 +21,11 @@ public class UserGroups {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AuthUser user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
+    private UserGroup group;
 
     public Integer getId() {
         return id;
@@ -35,19 +35,19 @@ public class UserGroups {
         this.id = id;
     }
 
-    public User getUser() {
+    public AuthUser getUser() {
         return user;
     }
 
-    public void setUser(final User user) {
+    public void setUser(final AuthUser user) {
         this.user = user;
     }
 
-    public Group getGroup() {
+    public UserGroup getGroup() {
         return group;
     }
 
-    public void setGroup(final Group group) {
+    public void setGroup(final UserGroup group) {
         this.group = group;
     }
 

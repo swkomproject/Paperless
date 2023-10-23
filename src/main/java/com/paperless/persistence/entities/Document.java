@@ -61,10 +61,10 @@ public class Document {
     private String archiveChecksum;
 
     @Column(length = 1024)
-    private String archiveFilename;
+    private String archivedFileName;
 
     @Column(length = 1024)
-    private String originalFilename;
+    private String originalFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "correspondent_id")
@@ -80,21 +80,21 @@ public class Document {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private User owner;
+    private AuthUser owner;
 
     @OneToMany(mappedBy = "document")
-    private Set<DocumentsNote> documentDocumentsNotes;
+    private Set<DocumentsNote> notes;
 
     @OneToMany(mappedBy = "document")
-    private Set<DocumentTags> documentDocumentTags;
+    private Set<DocumentTags> tags;
 
-    public void setDocumentDocumentsNotes(final Set<DocumentsNote> documentDocumentsNotes) {
-        this.documentDocumentsNotes = documentDocumentsNotes;
+    public void setNotes(final Set<DocumentsNote> notes) {
+        this.notes = notes;
     }
 
-    public void setDocumentDocumentTags(
-            final Set<DocumentTags> documentDocumentTags) {
-        this.documentDocumentTags = documentDocumentTags;
+    public void setTags(
+            final Set<DocumentTags> tags) {
+        this.tags = tags;
     }
 
 }

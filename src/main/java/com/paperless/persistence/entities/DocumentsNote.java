@@ -33,7 +33,7 @@ public class DocumentsNote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private AuthUser user;
 
     public Integer getId() {
         return id;
@@ -67,11 +67,11 @@ public class DocumentsNote {
         this.document = document;
     }
 
-    public User getUser() {
+    public AuthUser getUser() {
         return user;
     }
 
-    public void setUser(final User user) {
+    public void setUser(final AuthUser user) {
         this.user = user;
     }
 

@@ -27,7 +27,7 @@ public class AuthToken {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AuthUser user;
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class AuthToken {
         this.created = created;
     }
 
-    public User getUser() {
+    public AuthUser getUser() {
         return user;
     }
 
-    public void setUser(final User user) {
+    public void setUser(final AuthUser user) {
         this.user = user;
     }
 

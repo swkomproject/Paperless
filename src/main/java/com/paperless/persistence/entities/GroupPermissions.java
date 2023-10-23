@@ -23,7 +23,7 @@ public class GroupPermissions {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
+    private UserGroup group;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "permission_id", nullable = false)
@@ -37,11 +37,11 @@ public class GroupPermissions {
         this.id = id;
     }
 
-    public Group getGroup() {
+    public UserGroup getGroup() {
         return group;
     }
 
-    public void setGroup(final Group group) {
+    public void setGroup(final UserGroup group) {
         this.group = group;
     }
 
