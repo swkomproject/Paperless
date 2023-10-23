@@ -1,9 +1,9 @@
 package com.paperless.persistence.repositories;
 
-import com.paperless.persistence.entities.Group;
+import com.paperless.persistence.entities.DocumentsTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AuthGroupRepository extends JpaRepository<Group, Integer> {
+public interface TagRepository extends JpaRepository<DocumentsTag, Integer> {
 }

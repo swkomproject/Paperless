@@ -1,6 +1,6 @@
 package com.paperless.services.impl;
 
-import com.paperless.persistence.repositories.DocumentsDocumentRepository;
+import com.paperless.persistence.repositories.DocumentRepository;
 import com.paperless.services.dto.GetDocument200Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
-    private final DocumentsDocumentRepository documentRepository;
+    private final DocumentRepository documentRepository;
 
     @Autowired
-    public DocumentServiceImpl(DocumentsDocumentRepository documentRepository) {
+    public DocumentServiceImpl(DocumentRepository documentRepository) {
         this.documentRepository = documentRepository;
     }
 

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentsPaperlesstaskRepository extends JpaRepository<PaperlessTask, Integer> {
+public interface PaperlessTaskRepository extends JpaRepository<PaperlessTask, Integer> {
 }

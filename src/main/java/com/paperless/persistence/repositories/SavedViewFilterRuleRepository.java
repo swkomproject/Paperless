@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentsSavedviewfilterruleRepository extends JpaRepository<SavedViewFilterRule, Integer> {
+public interface SavedViewFilterRuleRepository extends JpaRepository<SavedViewFilterRule, Integer> {
 }

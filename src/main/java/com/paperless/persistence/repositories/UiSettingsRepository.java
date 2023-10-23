@@ -1,9 +1,9 @@
 package com.paperless.persistence.repositories;
 
-import com.paperless.persistence.entities.DocumentTags;
+import com.paperless.persistence.entities.UiSettings;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentsDocumentTagsRepository extends JpaRepository<DocumentTags, Integer> {
+public interface UiSettingsRepository extends JpaRepository<UiSettings, Integer> {
 }
