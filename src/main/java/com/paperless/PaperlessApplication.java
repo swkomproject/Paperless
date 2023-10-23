@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
@@ -14,6 +15,9 @@ import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGe
 @ComponentScan(
     basePackages = {"com.paperless", "com.paperless.api" , "com.paperless.configuration"},
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
+)
+@EnableJpaRepositories(
+  basePackages = "com.paperless.persistence.repositories"
 )
 public class PaperlessApplication {
 

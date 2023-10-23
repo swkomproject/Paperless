@@ -5,53 +5,55 @@
  */
 package com.paperless.api;
 
-import com.paperless.model.AckTasks200Response;
-import com.paperless.model.AckTasksRequest;
-import com.paperless.model.BulkEditRequest;
-import com.paperless.model.CreateCorrespondentRequest;
-import com.paperless.model.CreateDocumentType200Response;
-import com.paperless.model.CreateGroupRequest;
-import com.paperless.model.CreateSavedViewsRequest;
-import com.paperless.model.CreateStoragePath200Response;
-import com.paperless.model.CreateStoragePathRequest;
-import com.paperless.model.CreateTag200Response;
-import com.paperless.model.CreateTagRequest;
-import com.paperless.model.CreateUISettings200Response;
-import com.paperless.model.CreateUISettingsRequest;
-import com.paperless.model.CreateUserRequest;
+import com.paperless.services.dto.AckTasks200Response;
+import com.paperless.services.dto.AckTasksRequest;
+import com.paperless.services.dto.BulkEditRequest;
+import com.paperless.services.dto.CreateCorrespondentRequest;
+import com.paperless.services.dto.CreateDocumentType200Response;
+import com.paperless.services.dto.CreateGroupRequest;
+import com.paperless.services.dto.CreateSavedViewsRequest;
+import com.paperless.services.dto.CreateStoragePath200Response;
+import com.paperless.services.dto.CreateStoragePathRequest;
+import com.paperless.services.dto.CreateTag200Response;
+import com.paperless.services.dto.CreateTagRequest;
+import com.paperless.services.dto.CreateUISettings200Response;
+import com.paperless.services.dto.CreateUISettingsRequest;
+import com.paperless.services.dto.CreateUserRequest;
+import com.paperless.services.impl.DocumentServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.paperless.model.GetCorrespondents200Response;
-import com.paperless.model.GetDocument200Response;
-import com.paperless.model.GetDocumentMetadata200Response;
-import com.paperless.model.GetDocumentSuggestions200Response;
-import com.paperless.model.GetDocumentTypes200Response;
-import com.paperless.model.GetDocuments200Response;
-import com.paperless.model.GetGroups200Response;
-import com.paperless.model.GetSavedViews200Response;
-import com.paperless.model.GetStoragePaths200Response;
-import com.paperless.model.GetTags200Response;
-import com.paperless.model.GetTasks200ResponseInner;
-import com.paperless.model.GetUISettings200Response;
-import com.paperless.model.GetUsers200Response;
-import com.paperless.model.GetUsers200ResponseResultsInner;
+import com.paperless.services.dto.GetCorrespondents200Response;
+import com.paperless.services.dto.GetDocument200Response;
+import com.paperless.services.dto.GetDocumentMetadata200Response;
+import com.paperless.services.dto.GetDocumentSuggestions200Response;
+import com.paperless.services.dto.GetDocumentTypes200Response;
+import com.paperless.services.dto.GetDocuments200Response;
+import com.paperless.services.dto.GetGroups200Response;
+import com.paperless.services.dto.GetSavedViews200Response;
+import com.paperless.services.dto.GetStoragePaths200Response;
+import com.paperless.services.dto.GetTags200Response;
+import com.paperless.services.dto.GetTasks200ResponseInner;
+import com.paperless.services.dto.GetUISettings200Response;
+import com.paperless.services.dto.GetUsers200Response;
+import com.paperless.services.dto.GetUsers200ResponseResultsInner;
 import java.time.OffsetDateTime;
-import com.paperless.model.SelectionData200Response;
-import com.paperless.model.SelectionDataRequest;
-import com.paperless.model.Statistics200Response;
-import com.paperless.model.UpdateCorrespondent200Response;
-import com.paperless.model.UpdateCorrespondentRequest;
-import com.paperless.model.UpdateDocument200Response;
-import com.paperless.model.UpdateDocumentRequest;
-import com.paperless.model.UpdateDocumentType200Response;
-import com.paperless.model.UpdateDocumentTypeRequest;
-import com.paperless.model.UpdateGroup200Response;
-import com.paperless.model.UpdateGroupRequest;
-import com.paperless.model.UpdateStoragePath200Response;
-import com.paperless.model.UpdateStoragePathRequest;
-import com.paperless.model.UpdateTag200Response;
-import com.paperless.model.UpdateTagRequest;
-import com.paperless.model.UpdateUserRequest;
-import com.paperless.model.UserInfo;
+import com.paperless.services.dto.SelectionData200Response;
+import com.paperless.services.dto.SelectionDataRequest;
+import com.paperless.services.dto.Statistics200Response;
+import com.paperless.services.dto.UpdateCorrespondent200Response;
+import com.paperless.services.dto.UpdateCorrespondentRequest;
+import com.paperless.services.dto.UpdateDocument200Response;
+import com.paperless.services.dto.UpdateDocumentRequest;
+import com.paperless.services.dto.UpdateDocumentType200Response;
+import com.paperless.services.dto.UpdateDocumentTypeRequest;
+import com.paperless.services.dto.UpdateGroup200Response;
+import com.paperless.services.dto.UpdateGroupRequest;
+import com.paperless.services.dto.UpdateStoragePath200Response;
+import com.paperless.services.dto.UpdateStoragePathRequest;
+import com.paperless.services.dto.UpdateTag200Response;
+import com.paperless.services.dto.UpdateTagRequest;
+import com.paperless.services.dto.UpdateUserRequest;
+import com.paperless.services.dto.UserInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -73,7 +75,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
+@Generated(value = "com.paperless.codegen.languages.SpringCodegen", date = "2023-10-22T12:32:07.613318Z[Etc/UTC]")
 @Validated
 @Tag(name = "Tasks", description = "the Tasks API")
 public interface PaperlessApi {
@@ -280,6 +282,10 @@ public interface PaperlessApi {
                 }
             }
         });
+
+
+
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -562,6 +568,9 @@ public interface PaperlessApi {
     default ResponseEntity<Void> deleteDocumentType(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
+
+
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -772,6 +781,9 @@ public interface PaperlessApi {
                 }
             }
         });
+
+
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
