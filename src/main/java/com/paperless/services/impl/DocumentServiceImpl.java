@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
+    @Autowired
+    private DocumentMapper documentMapper;
+    @Autowired
+    private GetDocument200ResponseMapper getDocument200ResponseMapper;
+
 
     @Autowired
     public DocumentServiceImpl(DocumentRepository documentRepository) {

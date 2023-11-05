@@ -7,6 +7,7 @@ import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -18,9 +19,8 @@ import java.util.Set;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Service
 public abstract class DocumentMapper implements BaseMapper<Document, DocumentDTO> {
-
-    public static DocumentMapper INSTANCE = Mappers.getMapper(DocumentMapper.class);
 
     @Autowired
     private CorrespondentRepository correspondentRepository;
