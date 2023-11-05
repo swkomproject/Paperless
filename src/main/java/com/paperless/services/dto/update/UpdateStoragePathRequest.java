@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
-import com.paperless.services.dto.okresponse.GetDocument200ResponsePermissions;
+import com.paperless.services.dto.Permissions;
 import com.paperless.services.dto.okresponse.GetStoragePaths200ResponseResultsInnerPermissions;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -42,7 +42,7 @@ public class UpdateStoragePathRequest {
 
   private GetStoragePaths200ResponseResultsInnerPermissions permissions;
 
-  private GetDocument200ResponsePermissions setPermissions;
+  private Permissions setPermissions;
 
   private UpdateStoragePathRequestPermissionsForm permissionsForm;
 
@@ -53,7 +53,7 @@ public class UpdateStoragePathRequest {
   /**
    * Constructor with only required parameters
    */
-  public UpdateStoragePathRequest(Integer id, String slug, String name, String path, String match, Integer matchingAlgorithm, Boolean isInsensitive, Integer documentCount, Integer owner, GetStoragePaths200ResponseResultsInnerPermissions permissions, GetDocument200ResponsePermissions setPermissions, UpdateStoragePathRequestPermissionsForm permissionsForm) {
+  public UpdateStoragePathRequest(Integer id, String slug, String name, String path, String match, Integer matchingAlgorithm, Boolean isInsensitive, Integer documentCount, Integer owner, GetStoragePaths200ResponseResultsInnerPermissions permissions, Permissions setPermissions, UpdateStoragePathRequestPermissionsForm permissionsForm) {
     this.id = id;
     this.slug = slug;
     this.name = name;
@@ -268,7 +268,7 @@ public class UpdateStoragePathRequest {
     this.permissions = permissions;
   }
 
-  public UpdateStoragePathRequest setPermissions(GetDocument200ResponsePermissions setPermissions) {
+  public UpdateStoragePathRequest setPermissions(Permissions setPermissions) {
     this.setPermissions = setPermissions;
     return this;
   }
@@ -280,11 +280,11 @@ public class UpdateStoragePathRequest {
   @NotNull @Valid 
   @Schema(name = "set_permissions", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("set_permissions")
-  public GetDocument200ResponsePermissions getSetPermissions() {
+  public Permissions getSetPermissions() {
     return setPermissions;
   }
 
-  public void setSetPermissions(GetDocument200ResponsePermissions setPermissions) {
+  public void setSetPermissions(Permissions setPermissions) {
     this.setPermissions = setPermissions;
   }
 
