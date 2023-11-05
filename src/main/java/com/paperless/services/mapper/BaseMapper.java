@@ -2,6 +2,8 @@ package com.paperless.services.mapper;
 
 import org.openapitools.jackson.nullable.JsonNullable;
 
+import java.time.OffsetDateTime;
+
 public interface BaseMapper<EN, DTO> {
     DTO entityToDto(EN entity);
 
@@ -19,4 +21,13 @@ public interface BaseMapper<EN, DTO> {
     default JsonNullable<String> map(String value) {
         return JsonNullable.of(value);
     }
+
+    default OffsetDateTime mapOffsetDateTime(String value){
+        return OffsetDateTime.parse(value);
+    }
+
+    default String mapOffsetDateTime(OffsetDateTime value){
+        return value.toString();
+    }
+
 }
