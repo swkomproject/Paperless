@@ -1,11 +1,21 @@
 package com.paperless.services.impl;
 
+import com.paperless.persistence.entities.Document;
 import com.paperless.persistence.repositories.DocumentRepository;
+import com.paperless.services.dto.DocumentDTO;
 import com.paperless.services.dto.okresponse.GetDocument200Response;
+import com.paperless.services.dto.okresponse.GetDocuments200Response;
+import com.paperless.services.mapper.DocumentMapper;
+import com.paperless.services.mapper.GetDocument200ResponseMapper;
+import org.hibernate.type.OffsetDateTimeType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -24,28 +34,47 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public GetDocument200Response getDocument(Integer id, Integer page, Boolean fullPerms) {
-        //TODO: Map entity obtained from repository to DTO
-        //return documentRepository.getReferenceById(id);
-
-        GetDocument200Response sampleResponse = new GetDocument200Response();
-        sampleResponse.id(1)
-                .correspondent(1001)
-                .documentType(2)
-                .storagePath(3)
-                .title("Sample Document")
-                .content("This is the content of the sample document.")
-                .tags(new ArrayList<>())
-                .created("2023-10-22")
-                .createdDate("2023-10-22T12:00:00Z")
-                .modified("2023-10-22T13:30:00Z")
-                .added("2023-10-22T14:45:00Z")
-                .archiveSerialNumber(7)
-                .originalFileName("sample_document.pdf")
-                .archivedFileName("archived_sample_document.pdf")
-                .owner(1002);
-
-        return sampleResponse;
+        Document foundEntity =  documentRepository.getReferenceById(id);
+        return getDocument200ResponseMapper.entityToDto(foundEntity);
     }
+
+
+    @Override
+    public void uploadDocument(DocumentDTO documentDTO, List<MultipartFile> document) {
+        // TODO: document variable is unused yet
+
+        documentDTO.setCreated(OffsetDateTime.now());
+        documentDTO.setAdded(OffsetDateTime.now());
+        documentDTO.setModified(OffsetDateTime.now());
+        documentDTO.content("");
+        documentDTO.setAdded(OffsetDateTime.now());
+
+
+        Document documentToBeSaved = documentMapper.dtoToEntity(documentDTO);
+
+        documentToBeSaved.setChecksum("checksum");
+        documentToBeSaved.setStorageType("pdf");
+        documentToBeSaved.setMimeType("pdf");
+
+        documentRepository.save(documentToBeSaved);
+    }
+
+
+    @Override
+    public ResponseEntity<GetDocuments200Response> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
+        List<DocumentDTO> documentDTOS = new ArrayList<>();
+        for (Document document : documentRepository.findAll()) {
+            documentDTOS.add(documentMapper.entityToDto(document));
+        }
+
+
+        GetDocuments200Response sampleResponse = new GetDocuments200Response();
+        // We will need GetDocuments200ResponseResultsInner dtos here....
+        // sampleResponse.addResultsItem()
+        return ResponseEntity.ok(sampleResponse);
+    }
+
+
 
 //    @Override
 //    public DocumentsDocument uploadDocument(String title, OffsetDateTime created, Integer documentType, List<Integer> tags, Integer correspondent, List<MultipartFile> document) {

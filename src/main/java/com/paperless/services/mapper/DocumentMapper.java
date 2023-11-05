@@ -80,26 +80,36 @@ public abstract class DocumentMapper implements BaseMapper<Document, DocumentDTO
 
     @Named("correspondentDto")
     Correspondent mapCorrespondent(JsonNullable<Integer> value) {
+        if(value==null || !value.isPresent() || value.get()==null) return null;
+
         return correspondentRepository.findById(value.get()).orElse(null);
     }
 
     @Named("documentTypeDto")
     DocumentType mapDocumentType(JsonNullable<Integer> value) {
+        if(value==null || !value.isPresent() || value.get()==null) return null;
+
         return documentTypeRepository.findById(value.get()).orElse(null);
     }
 
     @Named("storagePathDto")
     StoragePath mapStoragePath(JsonNullable<Integer> value) {
+        if(value==null || !value.isPresent() || value.get()==null) return null;
+
         return storagePathRepository.findById(value.get()).orElse(null);
     }
 
     @Named("ownerDto")
     AuthUser mapOwner(JsonNullable<Integer> value) {
+        if(value==null || !value.isPresent() || value.get()==null) return null;
+
         return userRepository.findById(value.get()).orElse(null);
     }
 
     @Named("tagsDto")
     Set<DocumentTags> mapDocTag(JsonNullable<List<Integer>> value) {
+        if(value==null || !value.isPresent() || value.get()==null) return null;
+
         return new HashSet<DocumentTags>(documentTagsRepository.findAllById(value.get()));
     }
 
