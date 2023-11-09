@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import com.paperless.services.dto.DocumentNoteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -54,7 +56,7 @@ public class UpdateDocument200Response {
   private Boolean userCanChange;
 
   @Valid
-  private List<Object> notes = new ArrayList<>();
+  private List<DocumentNoteDTO> notes = new ArrayList<>();
 
   public UpdateDocument200Response() {
     super();
@@ -63,7 +65,7 @@ public class UpdateDocument200Response {
   /**
    * Constructor with only required parameters
    */
-  public UpdateDocument200Response(Integer id, Integer correspondent, Integer documentType, Integer storagePath, String title, String content, List<Integer> tags, String created, String createdDate, String modified, String added, Integer archiveSerialNumber, String originalFileName, String archivedFileName, Integer owner, Boolean userCanChange, List<Object> notes) {
+  public UpdateDocument200Response(Integer id, Integer correspondent, Integer documentType, Integer storagePath, String title, String content, List<Integer> tags, String created, String createdDate, String modified, String added, Integer archiveSerialNumber, String originalFileName, String archivedFileName, Integer owner, Boolean userCanChange, List<DocumentNoteDTO> notes) {
     this.id = id;
     this.correspondent = correspondent;
     this.documentType = documentType;
@@ -411,12 +413,12 @@ public class UpdateDocument200Response {
     this.userCanChange = userCanChange;
   }
 
-  public UpdateDocument200Response notes(List<Object> notes) {
+  public UpdateDocument200Response notes(List<DocumentNoteDTO> notes) {
     this.notes = notes;
     return this;
   }
 
-  public UpdateDocument200Response addNotesItem(Object notesItem) {
+  public UpdateDocument200Response addNotesItem(DocumentNoteDTO notesItem) {
     if (this.notes == null) {
       this.notes = new ArrayList<>();
     }
@@ -431,11 +433,11 @@ public class UpdateDocument200Response {
   @NotNull 
   @Schema(name = "notes", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("notes")
-  public List<Object> getNotes() {
+  public List<DocumentNoteDTO> getNotes() {
     return notes;
   }
 
-  public void setNotes(List<Object> notes) {
+  public void setNotes(List<DocumentNoteDTO> notes) {
     this.notes = notes;
   }
 
