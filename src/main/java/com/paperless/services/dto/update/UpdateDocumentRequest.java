@@ -114,7 +114,6 @@ public class UpdateDocumentRequest {
    * Get correspondent
    * @return correspondent
   */
-  @NotNull 
   @Schema(name = "correspondent", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("correspondent")
   public Integer getCorrespondent() {
@@ -134,7 +133,6 @@ public class UpdateDocumentRequest {
    * Get documentType
    * @return documentType
   */
-  @NotNull 
   @Schema(name = "document_type", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("document_type")
   public Integer getDocumentType() {
@@ -154,7 +152,6 @@ public class UpdateDocumentRequest {
    * Get storagePath
    * @return storagePath
   */
-  @NotNull 
   @Schema(name = "storage_path", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("storage_path")
   public Integer getStoragePath() {
@@ -302,7 +299,6 @@ public class UpdateDocumentRequest {
    * Get archiveSerialNumber
    * @return archiveSerialNumber
   */
-  @NotNull 
   @Schema(name = "archive_serial_number", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("archive_serial_number")
   public Integer getArchiveSerialNumber() {
@@ -342,7 +338,6 @@ public class UpdateDocumentRequest {
    * Get archivedFileName
    * @return archivedFileName
   */
-  @NotNull 
   @Schema(name = "archived_file_name", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("archived_file_name")
   public String getArchivedFileName() {
@@ -362,7 +357,6 @@ public class UpdateDocumentRequest {
    * Get owner
    * @return owner
   */
-  @NotNull 
   @Schema(name = "owner", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("owner")
   public Integer getOwner() {
@@ -382,7 +376,7 @@ public class UpdateDocumentRequest {
    * Get permissions
    * @return permissions
   */
-  @NotNull @Valid 
+  @Valid
   @Schema(name = "permissions", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("permissions")
   public GetCorrespondents200ResponseResultsInnerPermissions getPermissions() {
@@ -426,7 +420,7 @@ public class UpdateDocumentRequest {
    * Get setPermissions
    * @return setPermissions
   */
-  @NotNull @Valid 
+  @Valid
   @Schema(name = "set_permissions", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("set_permissions")
   public GetCorrespondents200ResponseResultsInnerPermissions getSetPermissions() {

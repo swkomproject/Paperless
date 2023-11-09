@@ -5,9 +5,11 @@ import com.paperless.persistence.repositories.DocumentRepository;
 import com.paperless.services.dto.DocumentDTO;
 import com.paperless.services.dto.okresponse.GetDocument200Response;
 import com.paperless.services.dto.okresponse.GetDocuments200Response;
+import com.paperless.services.dto.okresponse.UpdateDocument200Response;
+import com.paperless.services.dto.update.UpdateDocumentRequest;
 import com.paperless.services.mapper.DocumentMapper;
 import com.paperless.services.mapper.GetDocument200ResponseMapper;
-import org.hibernate.type.OffsetDateTimeType;
+import com.paperless.services.mapper.UpdateDocument200ResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,15 +23,17 @@ import java.util.List;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
-    @Autowired
-    private DocumentMapper documentMapper;
-    @Autowired
-    private GetDocument200ResponseMapper getDocument200ResponseMapper;
+    private final DocumentMapper documentMapper;
+    private final GetDocument200ResponseMapper getDocument200ResponseMapper;
+    private final UpdateDocument200ResponseMapper updateDocument200ResponseMapper;
 
 
     @Autowired
-    public DocumentServiceImpl(DocumentRepository documentRepository) {
+    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper) {
         this.documentRepository = documentRepository;
+        this.documentMapper = documentMapper;
+        this.getDocument200ResponseMapper = getDocument200ResponseMapper;
+        this.updateDocument200ResponseMapper = updateDocument200ResponseMapper;
     }
 
     @Override
@@ -69,16 +73,29 @@ public class DocumentServiceImpl implements DocumentService {
 
 
         GetDocuments200Response sampleResponse = new GetDocuments200Response();
-        // We will need GetDocuments200ResponseResultsInner dtos here....
-        // sampleResponse.addResultsItem()
+        sampleResponse.setCount(100);
+        sampleResponse.setNext(1);
+        sampleResponse.setPrevious(1);
+        sampleResponse.addAllItem(1);
+
+        for(DocumentDTO documentDTO : documentDTOS) {
+            sampleResponse.addResultsItem(documentDTO.toGetDocuments200ResponseResultsInner());
+        }
+
         return ResponseEntity.ok(sampleResponse);
     }
 
+    @Override
+    public ResponseEntity<UpdateDocument200Response> updateDocument(Integer id, UpdateDocumentRequest updateDocumentRequest) {
+        Document document = documentRepository.getReferenceById(id);
 
+        document.updateByUpdateDocumentRequest(updateDocumentRequest);
 
-//    @Override
-//    public DocumentsDocument uploadDocument(String title, OffsetDateTime created, Integer documentType, List<Integer> tags, Integer correspondent, List<MultipartFile> document) {
-//        return documentRepository.save();
-//    }
+        documentRepository.save(document);
+
+        UpdateDocument200Response updateDocument200Response = updateDocument200ResponseMapper.entityToDto(document);
+
+        return ResponseEntity.ok(updateDocument200Response);
+    }
 
 }

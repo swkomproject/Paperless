@@ -1,5 +1,6 @@
 package com.paperless.persistence.entities;
 
+import com.paperless.services.dto.update.UpdateDocumentRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -95,6 +96,17 @@ public class Document {
     public void setTags(
             final Set<DocumentTags> tags) {
         this.tags = tags;
+    }
+
+    public void updateByUpdateDocumentRequest (UpdateDocumentRequest update) {
+        setTitle(update.getTitle());
+        setContent(update.getContent());
+        setArchiveSerialNumber(update.getArchiveSerialNumber());
+        setCreated(OffsetDateTime.parse(update.getCreatedDate()));
+        setModified(OffsetDateTime.parse(update.getModified()));
+        setAdded(OffsetDateTime.parse(update.getAdded()));
+        setArchivedFileName(update.getArchivedFileName());
+        setOriginalFileName(update.getOriginalFileName());
     }
 
 }

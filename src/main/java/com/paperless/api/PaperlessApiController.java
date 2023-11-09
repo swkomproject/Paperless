@@ -4,8 +4,11 @@ package com.paperless.api;
 import com.paperless.services.dto.DocumentDTO;
 import com.paperless.services.dto.okresponse.GetDocument200Response;
 import com.paperless.services.dto.okresponse.GetDocuments200Response;
+import com.paperless.services.dto.okresponse.UpdateDocument200Response;
+import com.paperless.services.dto.update.UpdateDocumentRequest;
 import com.paperless.services.impl.DocumentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,28 +41,10 @@ public class PaperlessApiController implements PaperlessApi {
         return Optional.ofNullable(request);
     }
 
-//    @Override
-//    public ResponseEntity<Void> uploadDocument(String title, OffsetDateTime created, Integer documentType, List<Integer> tags, Integer correspondent, List<MultipartFile> document) {
-//        DocumentsDocument response = documentServiceImpl.uploadDocument( title,  created,  documentType, tags, correspondent, document);
-//
-//
-//        if (response != null) {
-//
-//
-//            // return GetDocument200Response();
-//            return ResponseEntity.ok().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        return PaperlessApi.super.uploadDocument(title, created, documentType, tags, correspondent, document);
-//    }
-
     @Override
     public ResponseEntity<GetDocument200Response> getDocument(Integer id, Integer page, Boolean fullPerms) {
         return ResponseEntity.ok(documentServiceImpl.getDocument(id, page, fullPerms));
     }
-
 
     @Override
     public ResponseEntity<Void> uploadDocument(String title, OffsetDateTime created, Integer documentType, List<Integer> tags, Integer correspondent, List<MultipartFile> document) {
@@ -76,7 +61,7 @@ public class PaperlessApiController implements PaperlessApi {
 
 
             documentServiceImpl.uploadDocument(documentDTO, document);
-            return ResponseEntity.ok().build();
+            return new ResponseEntity<>(HttpStatus.CREATED);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,12 +70,14 @@ public class PaperlessApiController implements PaperlessApi {
 
     }
 
-
     @Override
     public ResponseEntity<GetDocuments200Response> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
         return documentServiceImpl.getDocuments(page, pageSize, query, ordering, tagsIdAll, documentTypeId, storagePathIdIn, correspondentId, truncateContent);
     }
 
-
+    @Override
+    public ResponseEntity<UpdateDocument200Response> updateDocument(Integer id, UpdateDocumentRequest updateDocumentRequest) {
+        return documentServiceImpl.updateDocument(id, updateDocumentRequest);
+    }
 
 }
