@@ -1,6 +1,7 @@
 package com.paperless.services.impl;
 
 import com.paperless.persistence.entities.Document;
+import com.paperless.persistence.entities.StoragePath;
 import com.paperless.persistence.repositories.DocumentRepository;
 import com.paperless.services.dto.DocumentDTO;
 import com.paperless.services.dto.okresponse.GetDocument200Response;
@@ -10,16 +11,27 @@ import com.paperless.services.dto.update.UpdateDocumentRequest;
 import com.paperless.services.mapper.DocumentMapper;
 import com.paperless.services.mapper.GetDocument200ResponseMapper;
 import com.paperless.services.mapper.UpdateDocument200ResponseMapper;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
+import io.minio.errors.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
+@Slf4j
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
@@ -27,13 +39,23 @@ public class DocumentServiceImpl implements DocumentService {
     private final GetDocument200ResponseMapper getDocument200ResponseMapper;
     private final UpdateDocument200ResponseMapper updateDocument200ResponseMapper;
 
+    private final MinioClient minioClient;
+
+    private final RabbitMQSender rabbitMQSender;
+
+
+    @Value("${minio.bucketName}")
+    private String bucketName;
+
 
     @Autowired
-    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper) {
+    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper, MinioClient minioClient, RabbitMQSender rabbitMQSender){
         this.documentRepository = documentRepository;
         this.documentMapper = documentMapper;
         this.getDocument200ResponseMapper = getDocument200ResponseMapper;
         this.updateDocument200ResponseMapper = updateDocument200ResponseMapper;
+        this.minioClient = minioClient;
+        this.rabbitMQSender = rabbitMQSender;
     }
 
     @Override
@@ -44,7 +66,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 
     @Override
-    public void uploadDocument(DocumentDTO documentDTO, List<MultipartFile> document) {
+    public void uploadDocument(DocumentDTO documentDTO, MultipartFile file) {
         // TODO: document variable is unused yet
 
         documentDTO.setCreated(OffsetDateTime.now());
@@ -59,6 +81,35 @@ public class DocumentServiceImpl implements DocumentService {
         documentToBeSaved.setChecksum("checksum");
         documentToBeSaved.setStorageType("pdf");
         documentToBeSaved.setMimeType("pdf");
+
+        String objectName = generateRandomName() + getFileExtension(Objects.requireNonNull(file.getOriginalFilename()));
+
+        try {
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .stream(file.getInputStream(), file.getSize(), -1)
+                            .contentType(file.getContentType())
+                            .build()
+            );
+        } catch (ErrorResponseException | InsufficientDataException | InternalException | InvalidKeyException | InvalidResponseException | IOException | NoSuchAlgorithmException | ServerException | XmlParserException e) {
+            log.error("Error while uploading file to Minio.");
+            throw new RuntimeException(e);
+        }
+
+        StoragePath pathToFile = new StoragePath();
+        pathToFile.setPath(bucketName + "/" + objectName);
+        pathToFile.setName(file.getOriginalFilename());
+        pathToFile.setMatch("");
+        pathToFile.setMatchingAlgorithm(0);
+        pathToFile.setIsInsensitive(false);
+
+        documentToBeSaved.setStoragePath(pathToFile);
+
+        rabbitMQSender.sendToOcrDocumentInQueue(documentToBeSaved.getStoragePath().getPath());
+
+        log.info("Document saved and added to Queue.");
 
         documentRepository.save(documentToBeSaved);
     }
@@ -96,6 +147,15 @@ public class DocumentServiceImpl implements DocumentService {
         UpdateDocument200Response updateDocument200Response = updateDocument200ResponseMapper.entityToDto(document);
 
         return ResponseEntity.ok(updateDocument200Response);
+    }
+
+    private String generateRandomName() {
+        return UUID.randomUUID().toString();
+    }
+
+    private String getFileExtension(String filename) {
+        int lastDotIndex = filename.lastIndexOf(".");
+        return (lastDotIndex != -1) ? filename.substring(lastDotIndex) : "";
     }
 
 }

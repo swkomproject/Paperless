@@ -75,7 +75,7 @@ public class Document {
     @JoinColumn(name = "document_type_id")
     private DocumentType documentType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "storage_path_id")
     private StoragePath storagePath;
 
