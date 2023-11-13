@@ -3,15 +3,14 @@ package com.paperless.services.mapper;
 import com.paperless.persistence.entities.*;
 import com.paperless.persistence.repositories.*;
 import com.paperless.services.dto.DocumentDTO;
-import com.paperless.services.mapper.DocumentMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -24,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class})
 class DocumentMapperTests {
 
+    @Autowired
+    DocumentMapper documentMapper;
+
     @MockBean
     private CorrespondentRepository correspondentRepository;
     @MockBean
@@ -34,9 +36,6 @@ class DocumentMapperTests {
     private UserRepository userRepository;
     @MockBean
     private DocumentTagsRepository documentTagsRepository;
-
-    @InjectMocks
-    private final DocumentMapper documentMapper = DocumentMapper.INSTANCE;
 
     @BeforeEach
     public void setUp() {
