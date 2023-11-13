@@ -13,14 +13,17 @@ import com.paperless.services.mapper.GetDocument200ResponseMapper;
 import com.paperless.services.mapper.UpdateDocument200ResponseMapper;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import io.minio.errors.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
