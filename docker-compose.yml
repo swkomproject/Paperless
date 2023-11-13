@@ -19,6 +19,8 @@ services:
     depends_on:
       minio:
         condition: service_started
+      rabbitmq:
+        condition: service_started
       postgres:
         condition: service_healthy
     environment:
@@ -52,3 +54,13 @@ services:
       - MINIO_SECRET_KEY=paperless
       - MINIO_CONSOLE_ADDRESS=:9001
     command: server /data
+
+  rabbitmq:
+    image: rabbitmq:3.12.8-management
+    container_name: paperless-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=paperless
+      - RABBITMQ_DEFAULT_PASS=paperless

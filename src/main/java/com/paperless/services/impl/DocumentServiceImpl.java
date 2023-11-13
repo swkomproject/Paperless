@@ -13,6 +13,8 @@ import com.paperless.services.mapper.GetDocument200ResponseMapper;
 import com.paperless.services.mapper.UpdateDocument200ResponseMapper;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +37,15 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final MinioClient minioClient;
 
+    private final RabbitMQSender rabbitMQSender;
+
 
     @Value("${minio.bucketName}")
     private String bucketName;
 
 
     @Autowired
-    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper, MinioClient minioClient){
+    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper, MinioClient minioClient, RabbitMQSender rabbitMQSender){
         this.documentRepository = documentRepository;
         this.documentMapper = documentMapper;
         this.getDocument200ResponseMapper = getDocument200ResponseMapper;
@@ -96,6 +100,8 @@ public class DocumentServiceImpl implements DocumentService {
         pathToFile.setIsInsensitive(false);
 
         documentToBeSaved.setStoragePath(pathToFile);
+
+        rabbitMQSender.sendToOcrDocumentInQueue(documentToBeSaved.getStoragePath().getPath());
 
         documentRepository.save(documentToBeSaved);
     }
