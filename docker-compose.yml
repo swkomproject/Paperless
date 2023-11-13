@@ -17,6 +17,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
+      minio:
+        condition: service_started
       postgres:
         condition: service_healthy
     environment:
@@ -38,3 +40,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 20
+
+  minio:
+    image: minio/minio
+    container_name: paperless-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ACCESS_KEY=paperless
+      - MINIO_SECRET_KEY=paperless
+      - MINIO_CONSOLE_ADDRESS=:9001
+    command: server /data

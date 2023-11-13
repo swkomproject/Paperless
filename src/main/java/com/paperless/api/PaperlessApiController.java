@@ -59,8 +59,13 @@ public class PaperlessApiController implements PaperlessApi {
             documentDTO.setTags(JsonNullable.of(tags));
             documentDTO.setCorrespondent(JsonNullable.of(correspondent));
 
+            MultipartFile file = document.get(0);
 
-            documentServiceImpl.uploadDocument(documentDTO, document);
+            if(file == null || file.isEmpty()){
+                return ResponseEntity.badRequest().build();
+            }
+
+            documentServiceImpl.uploadDocument(documentDTO, file);
             return new ResponseEntity<>(HttpStatus.CREATED);
 
         } catch (Exception e) {
