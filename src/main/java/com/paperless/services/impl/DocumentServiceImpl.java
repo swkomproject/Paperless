@@ -51,6 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
         this.getDocument200ResponseMapper = getDocument200ResponseMapper;
         this.updateDocument200ResponseMapper = updateDocument200ResponseMapper;
         this.minioClient = minioClient;
+        this.rabbitMQSender = rabbitMQSender;
     }
 
     @Override
