@@ -89,7 +89,8 @@ public class DocumentServiceImpl implements DocumentService {
                             .contentType(file.getContentType())
                             .build()
             );
-        } catch (Exception e) {
+        } catch (ErrorResponseException | InsufficientDataException | InternalException | InvalidKeyException | InvalidResponseException | IOException | NoSuchAlgorithmException | ServerException | XmlParserException e) {
+            log.error("Error while uploading file to Minio.");
             throw new RuntimeException(e);
         }
 
@@ -103,6 +104,8 @@ public class DocumentServiceImpl implements DocumentService {
         documentToBeSaved.setStoragePath(pathToFile);
 
         rabbitMQSender.sendToOcrDocumentInQueue(documentToBeSaved.getStoragePath().getPath());
+
+        log.info("Document saved and added to Queue.");
 
         documentRepository.save(documentToBeSaved);
     }
