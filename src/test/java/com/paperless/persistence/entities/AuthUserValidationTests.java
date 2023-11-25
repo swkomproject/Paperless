@@ -3,16 +3,12 @@ package com.paperless.persistence.entities;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import static org.junit.jupiter.api.Assertions.fail;
 
-@SpringBootTest
 @Slf4j
 class AuthUserValidationTests {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

@@ -8,6 +8,21 @@ services:
     container_name: paperless-ui
     ports:
       - "80:80"
+    expose:
+      - "80"
+
+  tesseract:
+    build:
+      context: ./tesseract
+      dockerfile: Dockerfile-Paperless-Tesseract
+    container_name: paperless-tesseract
+    depends_on:
+      minio:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      postgres:
+        condition: service_healthy
 
   spring-app:
     build:
@@ -16,6 +31,8 @@ services:
     container_name: paperless-api
     ports:
       - "8080:8080"
+    expose:
+      - "8080"
     depends_on:
       minio:
         condition: service_started
@@ -31,6 +48,8 @@ services:
     container_name: paperless-postgres
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     environment:
       - POSTGRES_USER=paperless
       - POSTGRES_PASSWORD=paperless
@@ -49,6 +68,9 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
+    expose:
+        - "9000"
+        - "9001"
     environment:
       - MINIO_ACCESS_KEY=paperless
       - MINIO_SECRET_KEY=paperless
@@ -61,6 +83,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    expose:
+      - "5672"
+      - "15672"
     environment:
       - RABBITMQ_DEFAULT_USER=paperless
       - RABBITMQ_DEFAULT_PASS=paperless
