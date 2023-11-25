@@ -7,18 +7,25 @@ To run both the frontend ui as well as the spring server, run the docker compose
 
 ## Standalone Docker containers for development
 
+## Create docker network
+- ```docker network create paperless_network```
+
 ### Database:
-- ```docker run --name paperless-postgres-standalone -e POSTGRES_PASSWORD=paperless -e POSTGRES_USER=paperless -e POSTGRES_DB=paperless -p 5432:5432 -d postgres```
+- ```docker run --network=paperless_network --name paperless-postgres-standalone -e POSTGRES_PASSWORD=paperless -e POSTGRES_USER=paperless -e POSTGRES_DB=paperless -p 5432:5432 -d postgres```
 
 ### UI:
 - ```docker build -t paperless-ui ./ui```
-- ```docker run --name paperless-ui-standalone -p 80:80 -d paperless-ui```
+- ```docker run --network=paperless_network --name paperless-ui-standalone -p 80:80 -d paperless-ui```
+
+### Tesseract:
+- ```docker build -t tesseract_ocr ./tesseract```
+- ```docker run -d --network=paperless_network --name paperless-tesseract-standalone tesseract_ocr```
 
 ### minIO:
-- ```docker run -d --name paperless-minio-standalone -p 9000:9000 -p 9001:9001 -e MINIO_ACCESS_KEY=paperless -e MINIO_SECRET_KEY=paperless -e MINIO_CONSOLE_ADDRESS=:9001 minio/minio server /data```
+- ```docker run --network=paperless_network -d --name paperless-minio-standalone -p 9000:9000 -p 9001:9001 -e MINIO_ACCESS_KEY=paperless -e MINIO_SECRET_KEY=paperless -e MINIO_CONSOLE_ADDRESS=:9001 minio/minio server /data```
 
 ### rabbitMQ:
-- ```docker run -d --name paperless-rabbitmq-standalone -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=paperless -e RABBITMQ_DEFAULT_PASS=paperless rabbitmq:3.12.8-management```
+- ```docker run --network=paperless_network -d --name paperless-rabbitmq-standalone -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=paperless -e RABBITMQ_DEFAULT_PASS=paperless rabbitmq:3.12.8-management```
 
 ## Dashboards
 RabbitMQ: `http://localhost:15672`
