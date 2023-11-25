@@ -82,7 +82,9 @@ public class DocumentServiceImpl implements DocumentService {
         documentToBeSaved.setStorageType("pdf");
         documentToBeSaved.setMimeType("pdf");
 
-        String objectName = generateRandomName() + getFileExtension(Objects.requireNonNull(file.getOriginalFilename()));
+        documentRepository.save(documentToBeSaved);
+
+        String objectName = documentToBeSaved.getId() + getFileExtension(Objects.requireNonNull(file.getOriginalFilename()));
 
         try {
             minioClient.putObject(
