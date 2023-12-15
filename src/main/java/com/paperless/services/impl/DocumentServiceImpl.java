@@ -38,6 +38,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final DocumentMapper documentMapper;
     private final GetDocument200ResponseMapper getDocument200ResponseMapper;
     private final UpdateDocument200ResponseMapper updateDocument200ResponseMapper;
+    private final ElasticSearchService elasticSearchService;
 
     private final MinioClient minioClient;
 
@@ -49,13 +50,14 @@ public class DocumentServiceImpl implements DocumentService {
 
 
     @Autowired
-    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper, MinioClient minioClient, RabbitMQSender rabbitMQSender){
+    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper documentMapper, GetDocument200ResponseMapper getDocument200ResponseMapper, UpdateDocument200ResponseMapper updateDocument200ResponseMapper, MinioClient minioClient, RabbitMQSender rabbitMQSender, ElasticSearchService elasticSearchService) {
         this.documentRepository = documentRepository;
         this.documentMapper = documentMapper;
         this.getDocument200ResponseMapper = getDocument200ResponseMapper;
         this.updateDocument200ResponseMapper = updateDocument200ResponseMapper;
         this.minioClient = minioClient;
         this.rabbitMQSender = rabbitMQSender;
+        this.elasticSearchService = elasticSearchService;
     }
 
     @Override
@@ -118,11 +120,20 @@ public class DocumentServiceImpl implements DocumentService {
 
 
     @Override
-    public ResponseEntity<GetDocuments200Response> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
+    public ResponseEntity<GetDocuments200Response> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) throws IOException {
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (Document document : documentRepository.findAll()) {
-            documentDTOS.add(documentMapper.entityToDto(document));
+
+        if(query == null || query.isEmpty()) {
+            for (Document document : documentRepository.findAll()) {
+                documentDTOS.add(documentMapper.entityToDto(document));
+            }
+        } else {
+            //search with elasticsearch
+            for (Document document : elasticSearchService.searchDocument(query)) {
+                documentDTOS.add(documentMapper.entityToDto(document));
+            }
         }
+
 
 
         GetDocuments200Response sampleResponse = new GetDocuments200Response();

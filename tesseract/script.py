@@ -7,10 +7,23 @@ from pdf2image import convert_from_bytes
 import psycopg2
 import time
 
+print("Sleeping for 20 seconds to allow other containers to start...")
+time.sleep(20)
+
+from elastic_search_service import ElasticSearchService
+
 print("Starting OCR service...")
 
 connection = None
-time.sleep(20)
+
+
+es_service = ElasticSearchService()
+
+def add_to_elasticsearch(text, file_id):
+    es_service.index_document({
+        "id": file_id,
+        "content": text
+    })
 
 try:
     # Connect to RabbitMQ
@@ -135,6 +148,7 @@ def callback(ch, method, properties, body):
         print(allText)
 
         addToDatabase(allText, file_id)
+        add_to_elasticsearch(allText, file_id)
     except Exception as e:
         print(e)
         print("Error: Could not process file")
