@@ -28,6 +28,12 @@ To work, the commands need to be run in this order:
 - ```docker build -t tesseract_ocr ./tesseract```
 - ```docker run -d --network=paperless_network --name paperless-tesseract-standalone tesseract_ocr```
 
+### ElasticSearch:
+- ```docker run --network=paperless_network -d --name paperless-elasticsearch-standalone -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "cluster.name=docker-cluster" -e "bootstrap.memory_lock=true" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "xpack.security.enabled=true" -e "xpack.security.enrollment.enabled=false" -e "ELASTIC_PASSWORD=paperless" elasticsearch:8.7.1``
+
+### Kibana:
+- ```docker run --network=paperless_network -d --name paperless-kibana-standalone -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://paperless-elasticsearch-standalone:9200" -e "ELASTICSEARCH_USERNAME=kibana" -e "ELASTICSEARCH_PASSWORD=paperless" kibana:8.7.1```
+
 ## Dashboards
 RabbitMQ: `http://localhost:15672`
 - User: `paperless`

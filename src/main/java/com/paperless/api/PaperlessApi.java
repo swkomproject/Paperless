@@ -34,6 +34,8 @@ import com.paperless.services.dto.okresponse.GetTasks200ResponseInner;
 import com.paperless.services.dto.okresponse.GetUISettings200Response;
 import com.paperless.services.dto.okresponse.GetUsers200Response;
 import com.paperless.services.dto.okresponse.GetUsers200ResponseResultsInner;
+
+import java.io.IOException;
 import java.time.OffsetDateTime;
 import com.paperless.services.dto.okresponse.SelectionData200Response;
 import com.paperless.services.dto.SelectionDataRequest;
@@ -994,7 +996,7 @@ public interface PaperlessApi {
         @Parameter(name = "storage_path__id__in", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "storage_path__id__in", required = false) Integer storagePathIdIn,
         @Parameter(name = "correspondent__id", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "correspondent__id", required = false) Integer correspondentId,
         @Parameter(name = "truncate_content", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "truncate_content", required = false) Boolean truncateContent
-    ) {
+    ) throws IOException {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
