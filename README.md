@@ -6,8 +6,9 @@ To run both the frontend ui as well as the spring server, run the docker compose
 ```docker-compose up -d --build```
 
 ## Standalone Docker containers for development
+To work, the commands need to be run in this order:
 
-## Create docker network
+### Create docker network
 - ```docker network create paperless_network```
 
 ### Database:
@@ -17,15 +18,21 @@ To run both the frontend ui as well as the spring server, run the docker compose
 - ```docker build -t paperless-ui ./ui```
 - ```docker run --network=paperless_network --name paperless-ui-standalone -p 80:80 -d paperless-ui```
 
-### Tesseract:
-- ```docker build -t tesseract_ocr ./tesseract```
-- ```docker run -d --network=paperless_network --name paperless-tesseract-standalone tesseract_ocr```
-
 ### minIO:
 - ```docker run --network=paperless_network -d --name paperless-minio-standalone -p 9000:9000 -p 9001:9001 -e MINIO_ACCESS_KEY=paperless -e MINIO_SECRET_KEY=paperless -e MINIO_CONSOLE_ADDRESS=:9001 minio/minio server /data```
 
 ### rabbitMQ:
 - ```docker run --network=paperless_network -d --name paperless-rabbitmq-standalone -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=paperless -e RABBITMQ_DEFAULT_PASS=paperless rabbitmq:3.12.8-management```
+
+### Tesseract:
+- ```docker build -t tesseract_ocr ./tesseract```
+- ```docker run -d --network=paperless_network --name paperless-tesseract-standalone tesseract_ocr```
+
+### ElasticSearch:
+- ```docker run --network=paperless_network -d --name paperless-elasticsearch-standalone -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "cluster.name=docker-cluster" -e "bootstrap.memory_lock=true" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "xpack.security.enabled=true" -e "xpack.security.enrollment.enabled=false" -e "ELASTIC_PASSWORD=paperless" elasticsearch:8.7.1``
+
+### Kibana:
+- ```docker run --network=paperless_network -d --name paperless-kibana-standalone -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://paperless-elasticsearch-standalone:9200" -e "ELASTICSEARCH_USERNAME=kibana" -e "ELASTICSEARCH_PASSWORD=paperless" kibana:8.7.1```
 
 ## Dashboards
 RabbitMQ: `http://localhost:15672`

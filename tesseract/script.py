@@ -7,25 +7,44 @@ from pdf2image import convert_from_bytes
 import psycopg2
 import time
 
+print("Sleeping for 20 seconds to allow other containers to start...")
+time.sleep(20)
+
+from elastic_search_service import ElasticSearchService
+
 print("Starting OCR service...")
 
 connection = None
-time.sleep(20)
+
+
+es_service = ElasticSearchService()
+
+def add_to_elasticsearch(text, file_id):
+    es_service.index_document({
+        "id": file_id,
+        "content": text
+    })
 
 try:
     # Connect to RabbitMQ
     connection_params = pika.ConnectionParameters(
         host='paperless-rabbitmq',  # Replace 'localhost' with your RabbitMQ server's endpoint
-        credentials=pika.PlainCredentials('paperless', 'paperless')  # Replace with your RabbitMQ username and password
+        credentials=pika.PlainCredentials('paperless', 'paperless'),  # Replace with your RabbitMQ username and password
+        connection_attempts=1,
+        socket_timeout=2.0,
+        stack_timeout=2.0
     )
     connection = pika.BlockingConnection(connection_params)
+    print("Connected to paperless-rabbitmq")
 except Exception as e:
+    print("Connection to paperless-rabbitmq failed, trying paperless-rabbitmq-standalone")
     # Connect to RabbitMQ
     connection_params = pika.ConnectionParameters(
         host='paperless-rabbitmq-standalone',  # Replace 'localhost' with your RabbitMQ server's endpoint
         credentials=pika.PlainCredentials('paperless', 'paperless')  # Replace with your RabbitMQ username and password
     )
     connection = pika.BlockingConnection(connection_params)
+    print("Connected to paperless-rabbitmq-standalone")
 
 if(connection == None):
     print("Error: Could not connect to RabbitMQ")
@@ -44,9 +63,16 @@ bucket_name = 'paperless-files'
 minio_client = None
 try:
     minio_client = Minio(minio_endpoint, access_key=access_key, secret_key=secret_key, secure=False)
+    if not minio_client.bucket_exists("nonexistingbucket"):
+        print("Connected to paperless-minio:9000")
 except Exception as e:
+    print("Connection to paperless-minio:9000 failed, trying paperless-minio-standalone:9000")
     minio_endpoint = 'paperless-minio-standalone:9000'
     minio_client = Minio(minio_endpoint, access_key=access_key, secret_key=secret_key, secure=False)
+    if not minio_client.bucket_exists("nonexistingbucket"):
+        print("Connected to paperless-minio-standalone:9000")
+    else:
+        print("Connected to minio failed!")
 
 if(minio_client == None):
     print("Error: Could not connect to MinIO")
@@ -63,7 +89,9 @@ try:
         host="paperless-postgres",
         port="5432"
     )
+    print("Connected to paperless-postgres")
 except Exception as e:
+    print("Connection to paperless-postgres failed, trying paperless-postgres-standalone")
     # Postgres connection
     conn = psycopg2.connect(
         dbname="paperless",
@@ -72,6 +100,7 @@ except Exception as e:
         host="paperless-postgres-standalone",
         port="5432"
     )
+    print("Connected to paperless-postgres-standalone")
 
 if(conn == None):
     print("Error: Could not connect to PostgreSQL")
@@ -119,6 +148,7 @@ def callback(ch, method, properties, body):
         print(allText)
 
         addToDatabase(allText, file_id)
+        add_to_elasticsearch(allText, file_id)
     except Exception as e:
         print(e)
         print("Error: Could not process file")

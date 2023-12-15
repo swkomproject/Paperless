@@ -17,8 +17,7 @@ RUN apt install tesseract-ocr-deu -y
 
 # Copy the script and requirements file into the container
 COPY script.py /app/
-
-
+COPY elastic_search_service.py /app/
 
 # Command to run the script
 CMD ["python", "-u","script.py"]
