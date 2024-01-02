@@ -56,8 +56,6 @@ services:
       - POSTGRES_USER=paperless
       - POSTGRES_PASSWORD=paperless
       - POSTGRES_DB=paperless
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "paperless"]
       interval: 10s

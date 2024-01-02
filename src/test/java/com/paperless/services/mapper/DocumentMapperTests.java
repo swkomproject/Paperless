@@ -3,6 +3,7 @@ package com.paperless.services.mapper;
 import com.paperless.persistence.entities.*;
 import com.paperless.persistence.repositories.*;
 import com.paperless.services.dto.DocumentDTO;
+import com.paperless.services.mapper.DocumentMapperImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

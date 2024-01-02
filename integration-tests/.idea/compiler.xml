@@ -2,24 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="paperless" />
+        <module name="integration-tests" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="integration-tests" target="19" />
-      <module name="openapi-spring" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="integration-tests" options="-parameters" />
-      <module name="openapi-spring" options="-parameters" />
-      <module name="paperless" options="-parameters" />
+      <module name="integration-tests" options="" />
     </option>
   </component>
 </project>
