@@ -42,6 +42,7 @@ public class ElasticSearchService implements SearchIndexService {
     public List<Document> searchDocument(String query) throws IOException {
         SearchResponse<ObjectNode> response = esClient.search(s -> s
                 .index(ElasticSearchConfig.DOCUMENTS_INDEX_NAME)
+                .size(1000)
                 .query(q -> q.match(m -> m.field("content").query(query))),
                 ObjectNode.class
         );
