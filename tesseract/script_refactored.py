@@ -133,8 +133,8 @@ def callback(ch, method, properties, body, minio_client, es_service, postgres_co
 
 
 def main():
-    print("Sleeping for 40 seconds to allow other containers to start...")
-    time.sleep(40)
+    print("Sleeping for 20 seconds to allow other containers to start...")
+    time.sleep(20)
 
     es_service = ElasticSearchService()
 
